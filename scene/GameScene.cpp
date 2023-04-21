@@ -11,6 +11,15 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	//デストラクタ
 	
+
+	int kkkkkkkkkkkkk;
+
+
+
+
+
+
+
 }
 
 void GameScene::Initialize() {
