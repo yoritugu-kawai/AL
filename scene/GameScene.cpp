@@ -49,7 +49,7 @@ void GameScene::Update() {
 
 	position.x += 2.0f;
 	position.y += 1.0f;
-
+	 
 	sprite_->SetPosition(position);
 	// サウンド
 	if (input_->TriggerKey(DIK_SPACE)) {
