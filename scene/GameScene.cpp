@@ -10,13 +10,9 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	//デストラクタ
-
-
-
-
-
-
-
+	delete sprite_;
+	delete model_; 
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -24,11 +20,52 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	// スプライト
+	textureHandle_ =TextureManager::Load("kamata.ico");
+	sprite_ = Sprite::Create(textureHandle_, {100, 50});
+
+	// 3d
+	textureHandle2_ = TextureManager::Load("kamata.ico");
+	model_ = Model ::Create();
+	worldTransform_.Initialize();
+	viewProjection_.Initialize();
+	// 音楽
+	soundDataHandle_ = audio_->LoadWave("fanfare.wav");
+	audio_->PlayWave(soundDataHandle_);
+	voiceHandle_ = audio_->PlayWave(soundDataHandle_);
 	
+	
+	//ライン
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_);
+	
+	// カメラ
+	debugCamera_ = new DebugCamera(1280,720);
+	//
+	AxisIndicator::GetInstance()->SetVisible(true); 
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
+
   }
 
-void GameScene::Update() { 
-	
+void GameScene::Update() {
+	//スプライト
+	Vector2 pos = sprite_->GetPosition();
+	pos.x += 2.0f;
+	pos.y += 1.0f;
+	sprite_->SetPosition(pos);
+	//音楽
+	if (input_->TriggerKey(DIK_SPACE)) {
+		audio_->StopWave(voiceHandle_);
+
+	}
+	//ウインドウ
+	ImGui::Begin("Debug1");
+	ImGui::Text("kamata Tarou %d.%d.%d", 2050, 12, 31);
+	ImGui::InputFloat3("InputFloat3", inputFloat3);
+	ImGui::SliderFloat3("SliderFloat3", inputFloat3,0.0f,1.0f);
+	ImGui::ShowDebugLogWindow();
+	ImGui::End();
+	//カメラ
+	debugCamera_->Update();
 }
 
 void GameScene::Draw() {
@@ -44,7 +81,7 @@ void GameScene::Draw() {
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
 
-	
+	sprite_->Draw();
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
@@ -61,10 +98,13 @@ void GameScene::Draw() {
 	/// </summary>
 	
 	
+	model_->Draw(worldTransform_, viewProjection_, textureHandle2_); 
+	
+	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle2_); 
 	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
-	
+	PrimitiveDrawer::GetInstance()->DrawLine3d({0, 10, 0}, {0, 100, 0}, {1.0f, 0.0f, 0.0f, 1.0f});
 #pragma endregion
 
 #pragma region 前景スプライト描画
