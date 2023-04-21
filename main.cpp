@@ -11,6 +11,7 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	WinApp* win = nullptr;
 	DirectXCommon* dxCommon = nullptr;
+	
 	// 汎用機能
 	Input* input = nullptr;
 	Audio* audio = nullptr;
@@ -81,6 +82,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 描画開始
 		dxCommon->PreDraw();
+		
 		// ゲームシーンの描画
 		gameScene->Draw();
 		// 軸表示の描画
