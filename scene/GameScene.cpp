@@ -62,7 +62,7 @@ void GameScene::Update() {
 	ImGui::Text("kamata Tarou %d.%d.%d", 2050, 12, 31);
 	ImGui::InputFloat3("InputFloat3", inputFloat3);
 	ImGui::SliderFloat3("SliderFloat3", inputFloat3,0.0f,1.0f);
-	ImGui::ShowDebugLogWindow();
+	ImGui::ShowDemoWindow();
 	ImGui::End();
 	//カメラ
 	debugCamera_->Update();
