@@ -10,9 +10,6 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	//デストラクタ
-	
-
-	int kkkkkkkkkkkkk;
 
 
 
