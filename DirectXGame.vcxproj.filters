@@ -204,5 +204,6 @@
     <None Include="Resources\shaders\Terrain.hlsli">
       <Filter>シェーダー ファイル</Filter>
     </None>
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>
