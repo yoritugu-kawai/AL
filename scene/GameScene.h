@@ -28,6 +28,7 @@ public: // メンバ関数
 	/// </summary>
 	~GameScene();
 
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
