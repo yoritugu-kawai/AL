@@ -9,7 +9,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 //
-#include"DebugCamera.h"
+#include "DebugCamera.h"
 #include "Player.h"
 
 /// <summary>
@@ -27,7 +27,6 @@ public: // メンバ関数
 	/// デストラクタ
 	/// </summary>
 	~GameScene();
-
 
 	/// <summary>
 	/// 初期化
@@ -48,16 +47,14 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
-	//3D画像
+	// 3D画像
 	uint32_t textureHandle_ = 0;
 	Model* model_ = nullptr;
 	ViewProjection viewProjection_;
 	Player* player_ = nullptr;
-	//デバックカメラ
+	// デバックカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-
-
 
 	/// <summary>
 	/// ゲームシーン用

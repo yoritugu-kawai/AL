@@ -2,20 +2,17 @@
 #include "TextureManager.h"
 #include <cassert>
 
-#include"ImGuiManager.h"
-#include"PrimitiveDrawer.h"
-#include"AxisIndicator.h"
-
+#include "AxisIndicator.h"
+#include "ImGuiManager.h"
+#include "PrimitiveDrawer.h"
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-//デストラクタ
-delete model_;
-delete player_;
-delete debugCamera_;
-
-
+	// デストラクタ
+	delete model_;
+	delete player_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -23,7 +20,7 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-	//3D画像
+	// 3D画像
 	textureHandle_ = TextureManager::Load("e.png");
 	model_ = Model::Create();
 
@@ -31,9 +28,9 @@ void GameScene::Initialize() {
 
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_);
-	//デバックカメラ
+	// デバックカメラ
 	debugCamera_ = new DebugCamera(12180, 720);
-	//軸方向表示
+	// 軸方向表示
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
@@ -46,16 +43,16 @@ void GameScene::Update() {
 	if (input_->Triggerkey(DIK_SPACE)) {
 	}
 #endif // DEBUG
-	// カメラ処理
-	/*if (isDebugCameraActive_) {
-
-		viewProjection_.matView = ;
-		viewProjection_.matProjection = ;
-		viewProjection_.TransferMatrix();
-	} else {
-		viewProjection_.UpdateMatrix();
-
-	}*/
+	   // カメラ処理
+	   /*if (isDebugCameraActive_) {
+   
+	       viewProjection_.matView = ;
+	       viewProjection_.matProjection = ;
+	       viewProjection_.TransferMatrix();
+	   } else {
+	       viewProjection_.UpdateMatrix();
+   
+	   }*/
 }
 void GameScene::Draw() {
 
@@ -69,7 +66,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-	
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
@@ -87,8 +84,6 @@ void GameScene::Draw() {
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
-
-
 
 #pragma region 前景スプライト描画
 	// 前景スプライト描画前処理
