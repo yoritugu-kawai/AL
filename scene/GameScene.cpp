@@ -42,21 +42,22 @@ void GameScene::Update() {
 
 	player_->Update();
 	debugCamera_->Update();
-#ifdef DEBUG
-	if (input_->Triggerkey(DIK_SPACE)) {
-
+#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_SPACE)) {
+		isDebugCameraActive_ = true;
 	}
+
 #endif // DEBUG
 	// カメラ処理
-	/*if (isDebugCameraActive_) {
+	if (isDebugCameraActive_) {
 
-		viewProjection_.matView = ;
-		viewProjection_.matProjection = ;
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
 	} else {
 		viewProjection_.UpdateMatrix();
 
-	}*/
+	}
 }
 void GameScene::Draw() {
 
