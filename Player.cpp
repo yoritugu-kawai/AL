@@ -1,41 +1,59 @@
-#include"Player.h"
+ï»¿#include"Player.h"
+#include<Affine.h>
+#include<Add.h>
 #include <cassert>
+#include<ImGuiManager.h>
 void Player::Initialize(Model* model, uint32_t textureHandle) { 
-		/*‰æ‘œ*/
+		/*ç”»åƒ*/
 	assert(model);
 	this->model_ = model;
 	this->textureHandle_ = textureHandle;
 
 	worldTransform_.Initialize();
-
+	input_ = Input::GetInstance();
 
 
 
 }
 
 void Player::Update() { 
-		/*‰æ‘œ*/
+		/*ç”»åƒ*/
 	worldTransform_.TransferMatrix();
-	    /*‘€ìƒL[*/
+	    /*æ“ä½œã‚­ãƒ¼*/
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
+
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	} else if (input_->PushKey(DIK_RIGHT)) {
 		move.x += kCharacterSpeed;
 	}
 	if (input_->PushKey(DIK_UP)) {
-		move.y -= kCharacterSpeed;
+		move.y += kCharacterSpeed;
 	} else if (input_->PushKey(DIK_DOWN)) {
-		move.y+= kCharacterSpeed;
+		move.y-= kCharacterSpeed;
 	}
+	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+
+	ImGui::Begin(" ");
+	ImGui::SliderFloat3("Player", inputFloat3, -33.0f,33.0f );
+	ImGui::End();
+	//ç§»å‹•åˆ¶é™
+	const float kMoveLimitX = 33;
+	const float kMoveLimitY = 18;
+	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
+	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
+	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
+	worldTransform_.translation_.y= min(worldTransform_.translation_.y, +kMoveLimitY);
+
 
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
-	/*‰æ‘œ*/
+	/*ç”»åƒ*/
 	model_->Draw(this->worldTransform_, viewProjection_, this->textureHandle_);
-	/*‘€ìƒL[*/
+	/*æ“ä½œã‚­ãƒ¼*/
 	input_ = Input::GetInstance();
 
 

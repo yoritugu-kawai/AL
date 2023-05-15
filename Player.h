@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include<Model.h>
 #include<WorldTransform.h>
@@ -14,12 +14,13 @@ public:
 	void Draw(ViewProjection viewProjection_);
 
 private:
-	/*‰æ‘œ*/
+	/*ç”»åƒ*/
 	WorldTransform worldTransform_;
 	
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
-	/*‘€ìƒL[*/
+	/*æ“ä½œã‚­ãƒ¼*/
 	Input* input_ = nullptr;
+	float inputFloat3[3] = {0, 0, 0};
 
 };

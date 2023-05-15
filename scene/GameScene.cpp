@@ -13,6 +13,7 @@ GameScene::~GameScene() {
 //デストラクタ
 delete model_;
 delete player_;
+delete debugCamera_;
 
 
 }
@@ -22,7 +23,7 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-	//
+	//3D画像
 	textureHandle_ = TextureManager::Load("e.png");
 	model_ = Model::Create();
 
@@ -30,15 +31,32 @@ void GameScene::Initialize() {
 
 	player_ = new Player();
 	player_->Initialize(model_, textureHandle_);
+	//デバックカメラ
+	debugCamera_ = new DebugCamera(12180, 720);
+	//軸方向表示
+	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
 void GameScene::Update() {
 
-	player_->Update(); 
+	player_->Update();
+	debugCamera_->Update();
+#ifdef DEBUG
+	if (input_->Triggerkey(DIK_SPACE)) {
+	}
+#endif // DEBUG
+	// カメラ処理
+	/*if (isDebugCameraActive_) {
 
+		viewProjection_.matView = ;
+		viewProjection_.matProjection = ;
+		viewProjection_.TransferMatrix();
+	} else {
+		viewProjection_.UpdateMatrix();
 
+	}*/
 }
-
 void GameScene::Draw() {
 
 	// コマンドリストの取得
