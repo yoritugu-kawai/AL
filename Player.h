@@ -21,6 +21,6 @@ private:
 	uint32_t textureHandle_ = 0u;
 	/*操作キー*/
 	Input* input_ = nullptr;
-	float inputFloat3[3] = {0, 0, 0};
+	
 
 };

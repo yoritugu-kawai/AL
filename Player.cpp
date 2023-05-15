@@ -36,7 +36,8 @@ void Player::Update() {
 	}
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-
+	float inputFloat3[3] = {
+	    worldTransform_.translation_.x, worldTransform_.translation_.y,worldTransform_.translation_.z};
 	ImGui::Begin(" ");
 	ImGui::SliderFloat3("Player", inputFloat3, -33.0f,33.0f );
 	ImGui::End();

@@ -44,6 +44,7 @@ void GameScene::Update() {
 	debugCamera_->Update();
 #ifdef DEBUG
 	if (input_->Triggerkey(DIK_SPACE)) {
+
 	}
 #endif // DEBUG
 	// カメラ処理
