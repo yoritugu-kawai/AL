@@ -21,7 +21,9 @@ void Player::Update() {
 	    /*操作キー*/
 	Vector3 move = {0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
-
+	float inputFloat3[3] = {
+	    worldTransform_.translation_.x, worldTransform_.translation_.y,
+	    worldTransform_.translation_.z};
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	} else if (input_->PushKey(DIK_RIGHT)) {
