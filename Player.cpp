@@ -16,7 +16,7 @@ void Player::Attack() {
 
 	if (input_->PushKey(DIK_B)) {
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.rotation_);
+		newBullet->Initialize(model_, worldTransform_.translation_);
 		bullet_ = newBullet;
 	}
 }
@@ -57,6 +57,15 @@ void Player::Update() {
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+	
+	/*弾*/
+	Attack();
+
+	if (bullet_) {
+		bullet_->Update();
+	}
+	
+	
 	// 回転
 	const float kRotSpeed = 0.2f;
 	if (input_->PushKey(DIK_A)) {
@@ -65,12 +74,7 @@ void Player::Update() {
 
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
-
-	Attack();
-
-	if (bullet_) {
-		bullet_->Update();
-	}
+	
 
 }
 
@@ -79,4 +83,8 @@ void Player::Draw(ViewProjection viewProjection_) {
 	model_->Draw(this->worldTransform_, viewProjection_, this->textureHandle_);
 	/*操作キー*/
 	input_ = Input::GetInstance();
+	/*弾*/
+	if (bullet_) {
+		bullet_->Draw(viewProjection_);
+	}
 }
