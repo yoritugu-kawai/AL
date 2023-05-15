@@ -12,6 +12,16 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
 }
+void Player::Attack() {
+
+	if (input_->PushKey(DIK_B)) {
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.rotation_);
+		bullet_ = newBullet;
+	}
+}
+
+
 
 void Player::Update() {
 	/*画像*/
@@ -55,6 +65,13 @@ void Player::Update() {
 
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
+
+	Attack();
+
+	if (bullet_) {
+		bullet_->Update();
+	}
+
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
@@ -62,14 +79,4 @@ void Player::Draw(ViewProjection viewProjection_) {
 	model_->Draw(this->worldTransform_, viewProjection_, this->textureHandle_);
 	/*操作キー*/
 	input_ = Input::GetInstance();
-}
-void Player::Attack() {
-	
-	if (input_->PushKey(DIK_B)) {
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.rotation_);
-		bullet_ = newBullet;
-	}
-
-
 }
