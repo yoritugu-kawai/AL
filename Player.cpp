@@ -90,6 +90,14 @@ void Player::Update() {
 
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
+	//速度
+	bullets_.remove_if([](PlayerBullet* bullet) { 
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+		});
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
