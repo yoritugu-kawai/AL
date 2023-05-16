@@ -14,7 +14,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 void Player::Attack() {
 
-	if (input_->PushKey(DIK_B)) {
+	if (input_->PushKey(DIK_SPACE)) {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 		bullet_ = newBullet;
