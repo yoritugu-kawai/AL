@@ -3,6 +3,13 @@
 #include <Affine.h>
 #include <ImGuiManager.h>
 #include <cassert>
+Player::~Player() { 
+	//for (PlayerBullet* bullet : bullets_) {
+		delete bullet_;
+	//}
+	
+
+}
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	/*画像*/
 	assert(model);
@@ -14,10 +21,18 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 void Player::Attack() {
 
-	if (input_->PushKey(DIK_SPACE)) {
+		if (input_->PushKey(DIK_SPACE)) {
+
+		//DirectX::XMFLOAT3 position=worldTransform_.trnslation_;
+
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
-		bullet_ = newBullet;
+		bullets_.push_back(newBullet);
+		/*if(bullet_) {
+			delete bullet_;
+			bullet_ = nullptr;
+		}*/
+
 	}
 }
 
@@ -61,7 +76,7 @@ void Player::Update() {
 	/*弾*/
 	Attack();
 
-	if (bullet_) {
+	for (PlayerBullet*bullet:bullets_) {
 		bullet_->Update();
 	}
 	
@@ -84,7 +99,7 @@ void Player::Draw(ViewProjection viewProjection_) {
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/
-	if (bullet_) {
+	for (PlayerBullet* bullet : bullets_) {
 		bullet_->Draw(viewProjection_);
 	}
 }

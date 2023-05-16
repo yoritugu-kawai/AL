@@ -1,12 +1,12 @@
 ﻿#pragma once
-
 #include "Input.h"
 #include <Model.h>
+#include <PlayerBullet.h>
 #include <WorldTransform.h>
-#include<PlayerBullet.h>
-
+#include<list>
 class Player {
 public:
+	~Player();
 	void Initialize(Model* model, uint32_t textureHandle);
 
 	void Update();
@@ -25,4 +25,5 @@ private:
 	Input* input_ = nullptr;
 	/*弾*/
 	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 };
