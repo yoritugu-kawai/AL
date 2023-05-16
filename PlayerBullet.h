@@ -5,7 +5,7 @@
 class PlayerBullet {
 public:
 public:
-	void Initialize(Model* model, const Vector3& position);
+	void Initialize(Model* model, const Vector3& position, const Vector3& velocuty);
 
 	void Update();
 
@@ -17,4 +17,6 @@ private:
 
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
+	//速度
+	Vector3 velocuty_;
 };

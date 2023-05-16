@@ -1,14 +1,20 @@
 ﻿#include "PlayerBullet.h"
-void PlayerBullet::Initialize(Model* model, const Vector3& position) {
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocuty) {
 	model_ = model;
 
 	textureHandle_ = TextureManager::Load("bullet.png");
 	worldTransform_.Initialize();
 
 	worldTransform_.translation_ = position;
+	// 速度
+	velocuty_ = velocuty;
 }
 
-void PlayerBullet::Update() { worldTransform_.UpdateMatrix(); }
+void PlayerBullet::Update() {
+	worldTransform_.UpdateMatrix();
+	//速度
+	worldTransform_.translation_ += 1.0f;
+}
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
 
