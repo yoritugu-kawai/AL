@@ -1,8 +1,10 @@
 ﻿#include "Player.h"
 #include <Add.h>
 #include <Affine.h>
+#include"TransformNormal.h"
 #include <ImGuiManager.h>
 #include <cassert>
+
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet_;
