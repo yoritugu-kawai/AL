@@ -4,11 +4,10 @@
 #include <ImGuiManager.h>
 #include <cassert>
 Player::~Player() { 
-	//for (PlayerBullet* bullet : bullets_) {
+	for (PlayerBullet* bullet : bullets_) {
 		delete bullet_;
-	//}
+	}
 	
-
 }
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	/*画像*/
