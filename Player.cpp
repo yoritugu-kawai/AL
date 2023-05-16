@@ -21,8 +21,6 @@ void Player::Attack() {
 	}
 }
 
-
-
 void Player::Update() {
 	/*画像*/
 	worldTransform_.TransferMatrix();
@@ -57,15 +55,14 @@ void Player::Update() {
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
-	
+
 	/*弾*/
 	Attack();
 
 	if (bullet_) {
 		bullet_->Update();
 	}
-	
-	
+
 	// 回転
 	const float kRotSpeed = 0.2f;
 	if (input_->PushKey(DIK_A)) {
@@ -74,8 +71,6 @@ void Player::Update() {
 
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
-	
-
 }
 
 void Player::Draw(ViewProjection viewProjection_) {

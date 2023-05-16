@@ -1,9 +1,8 @@
 ﻿#pragma once
-
 #include "Input.h"
 #include <Model.h>
+#include <PlayerBullet.h>
 #include <WorldTransform.h>
-#include<PlayerBullet.h>
 
 class Player {
 public:
