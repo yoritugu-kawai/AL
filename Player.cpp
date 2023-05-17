@@ -5,10 +5,11 @@
 #include <cassert>
 Player::~Player() { 
 	for (PlayerBullet* bullet : bullets_) {
-		delete bullet_;
+		delete bullet;
 	}
 	
 }
+
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	/*画像*/
 	assert(model);
@@ -76,7 +77,7 @@ void Player::Update() {
 	Attack();
 
 	for (PlayerBullet*bullet:bullets_) {
-		bullet_->Update();
+		bullet->Update();
 	}
 	
 	
@@ -99,6 +100,6 @@ void Player::Draw(ViewProjection viewProjection_) {
 	input_ = Input::GetInstance();
 	/*弾*/
 	for (PlayerBullet* bullet : bullets_) {
-		bullet_->Draw(viewProjection_);
+		bullet->Draw(viewProjection_);
 	}
 }
