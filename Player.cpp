@@ -1,7 +1,7 @@
 ﻿#include "Player.h"
+#include "TransformNormal.h"
 #include <Add.h>
 #include <Affine.h>
-#include"TransformNormal.h"
 #include <ImGuiManager.h>
 #include <cassert>
 
@@ -23,20 +23,15 @@ void Player::Attack() {
 
 	if (input_->PushKey(DIK_SPACE)) {
 
-		
-		//弾の速度
+		// 弾の速度
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 
-		velocity = TransFormNormal(velocity,worldTransform_.matWorld_ );
+		velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
 
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 		bullets_.push_back(newBullet);
-		/*if(bullet_) {
-		    delete bullet_;
-		    bullet_ = nullptr;
-		}*/
 	}
 }
 
@@ -90,14 +85,14 @@ void Player::Update() {
 
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
-	//速度
-	bullets_.remove_if([](PlayerBullet* bullet) { 
+	// 速度
+	bullets_.remove_if([](PlayerBullet* bullet) {
 		if (bullet->IsDead()) {
 			delete bullet;
 			return true;
 		}
 		return false;
-		});
+	});
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
