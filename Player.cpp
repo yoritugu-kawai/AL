@@ -3,11 +3,10 @@
 #include <Affine.h>
 #include <ImGuiManager.h>
 #include <cassert>
-Player::~Player() { 
+Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet;
 	}
-	
 }
 
 void Player::Initialize(Model* model, uint32_t textureHandle) {
@@ -21,22 +20,19 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 void Player::Attack() {
 
-		if (input_->PushKey(DIK_SPACE)) {
+	if (input_->PushKey(DIK_SPACE)) {
 
-		//DirectX::XMFLOAT3 position=worldTransform_.trnslation_;
+		// DirectX::XMFLOAT3 position=worldTransform_.trnslation_;
 
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 		bullets_.push_back(newBullet);
 		/*if(bullet_) {
-			delete bullet_;
-			bullet_ = nullptr;
+		    delete bullet_;
+		    bullet_ = nullptr;
 		}*/
-
 	}
 }
-
-
 
 void Player::Update() {
 	/*画像*/
@@ -72,15 +68,14 @@ void Player::Update() {
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
-	
+
 	/*弾*/
 	Attack();
 
-	for (PlayerBullet*bullet:bullets_) {
+	for (PlayerBullet* bullet : bullets_) {
 		bullet->Update();
 	}
-	
-	
+
 	// 回転
 	const float kRotSpeed = 0.2f;
 	if (input_->PushKey(DIK_A)) {
@@ -89,8 +84,6 @@ void Player::Update() {
 
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
-	
-
 }
 
 void Player::Draw(ViewProjection viewProjection_) {
