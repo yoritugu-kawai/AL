@@ -7,7 +7,7 @@
 
 Player::~Player() {
 	for (PlayerBullet* bullet : bullets_) {
-		delete bullet_;
+		delete bullet;
 	}
 }
 void Player::Initialize(Model* model, uint32_t textureHandle) {
@@ -23,15 +23,15 @@ void Player::Attack() {
 
 	if (input_->PushKey(DIK_SPACE)) {
 
-		// DirectX::XMFLOAT3 position=worldTransform_.trnslation_;
+		
 		//弾の速度
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 
-		velocity = TransFormNormal(velocity, );
+		velocity = TransFormNormal(velocity,worldTransform_.matWorld_ );
 
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+		newBullet->Initialize(model_, worldTransform_.translation_,velocity);
 		bullets_.push_back(newBullet);
 		/*if(bullet_) {
 		    delete bullet_;
@@ -79,7 +79,7 @@ void Player::Update() {
 	Attack();
 
 	for (PlayerBullet* bullet : bullets_) {
-		bullet_->Update();
+		bullet->Update();
 	}
 
 	// 回転
@@ -107,6 +107,6 @@ void Player::Draw(ViewProjection viewProjection_) {
 	input_ = Input::GetInstance();
 	/*弾*/
 	for (PlayerBullet* bullet : bullets_) {
-		bullet_->Draw(viewProjection_);
+		bullet->Draw(viewProjection_);
 	}
 }

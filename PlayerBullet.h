@@ -2,6 +2,7 @@
 #include "Input.h"
 #include <Model.h>
 #include <WorldTransform.h>
+#include<Add.h>
 class PlayerBullet {
 public:
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocuty);
