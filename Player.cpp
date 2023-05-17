@@ -10,6 +10,7 @@ Player::~Player() {
 		delete bullet;
 	}
 }
+
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	/*画像*/
 	assert(model);
