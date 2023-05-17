@@ -10,7 +10,7 @@
 #include "WorldTransform.h"
 //
 #include "DebugCamera.h"
-#include "Player.h"
+#include "MyClass/chara/Player.h"
 
 /// <summary>
 /// ゲームシーン
