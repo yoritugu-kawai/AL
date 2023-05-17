@@ -16,7 +16,6 @@ public:
 private:
 	/*画像*/
 	WorldTransform worldTransform_;
-
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
 	// 速度
