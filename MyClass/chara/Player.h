@@ -1,13 +1,18 @@
 ﻿#pragma once
 #include "Input.h"
-#include <Model.h>
 #include "MyClass/chara/PlayerBullet.h"
+#include "TextureManager.h"
+#include "MyClass/math/TransformNormal.h"
+#include "MyClass/math/Add.h"
+#include "MyClass/math/Affine.h"
+#include <Model.h>
 #include <WorldTransform.h>
-#include<list>
+#include <list>
 class Player {
 public:
+	Player();
 	~Player();
-	void Initialize(Model* model, uint32_t textureHandle);
+	void Initialize();
 
 	void Update();
 

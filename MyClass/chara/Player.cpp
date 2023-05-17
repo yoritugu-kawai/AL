@@ -1,24 +1,25 @@
 ﻿#include "MyClass/chara/Player.h"
-#include "MyClass/math/TransformNormal.h"
-#include "MyClass/math/Add.h"
-#include "MyClass/math/Affine.h"
 #include <ImGuiManager.h>
 #include <cassert>
-
+Player::Player(){};
 Player::~Player() {
+	delete model_;
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet;
 	}
 }
 
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+void Player::Initialize() {
+	
 	/*画像*/
-	assert(model);
-	this->model_ = model;
-	this->textureHandle_ = textureHandle;
+
+	worldTransform_.Initialize();
+	textureHandle_ = TextureManager::Load("player.png");
+	model_ = Model::Create();
 
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
+	assert(model_);
 }
 void Player::Attack() {
 
@@ -98,7 +99,7 @@ void Player::Update() {
 
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
-	model_->Draw(this->worldTransform_, viewProjection_, this->textureHandle_);
+	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/

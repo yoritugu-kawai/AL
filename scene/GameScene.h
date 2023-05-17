@@ -11,6 +11,8 @@
 //
 #include "DebugCamera.h"
 #include "MyClass/chara/Player.h"
+#include "MyClass/chara/Enemy.h"
+#include "TextureManager.h"
 
 /// <summary>
 /// ゲームシーン
@@ -48,10 +50,12 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	// 3D画像
-	uint32_t textureHandle_ = 0;
-	Model* model_ = nullptr;
+	
 	ViewProjection viewProjection_;
+	//自機
 	Player* player_ = nullptr;
+	//敵
+	Enemy* enemy_ = nullptr;
 	// デバックカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;

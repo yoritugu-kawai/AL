@@ -110,6 +110,7 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyClass\chara\Enemy.cpp" />
     <ClCompile Include="MyClass\chara\Player.cpp" />
     <ClCompile Include="MyClass\chara\PlayerBullet.cpp" />
     <ClCompile Include="MyClass\math\Add.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="MyClass\chara\Enemy.h" />
     <ClInclude Include="MyClass\chara\Player.h" />
     <ClInclude Include="MyClass\chara\PlayerBullet.h" />
     <ClInclude Include="MyClass\math\Add.h" />

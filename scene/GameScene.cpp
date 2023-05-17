@@ -1,5 +1,4 @@
 #include "GameScene.h"
-#include "TextureManager.h"
 #include <cassert>
 
 #include "AxisIndicator.h"
@@ -10,8 +9,9 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	// デストラクタ
-	delete model_;
-	delete player_;
+	
+	player_->~Player();
+	 enemy_->~Enemy();
 	delete debugCamera_;
 }
 
@@ -21,13 +21,15 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	// 3D画像
-	textureHandle_ = TextureManager::Load("e.png");
-	model_ = Model::Create();
+	
 
 	viewProjection_.Initialize();
-
+	//自機
 	player_ = new Player();
-	player_->Initialize(model_, textureHandle_);
+	player_->Initialize();
+	//
+	enemy_ = new Enemy();
+	enemy_->Initialize();
 	// デバックカメラ
 	debugCamera_ = new DebugCamera(12180, 720);
 	// 軸方向表示
@@ -36,7 +38,7 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
-
+	enemy_->Update();
 	player_->Update();
 	debugCamera_->Update();
 #ifdef _DEBUG
@@ -82,6 +84,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	player_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
