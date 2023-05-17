@@ -1,7 +1,7 @@
-﻿#include "Player.h"
-#include "TransformNormal.h"
-#include <Add.h>
-#include <Affine.h>
+﻿#include "MyClass/chara/Player.h"
+#include "MyClass/math/TransformNormal.h"
+#include "MyClass/math/Add.h"
+#include "MyClass/math/Affine.h"
 #include <ImGuiManager.h>
 #include <cassert>
 

@@ -1,4 +1,4 @@
-#include<Add.h>
+#include"MyClass/math/Add.h"
 
 Vector3 Add(const Vector3& v1, const Vector3& v2) {
 	Vector3 result{};

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Input.h"
 #include <Model.h>
-#include <PlayerBullet.h>
+#include "MyClass/chara/PlayerBullet.h"
 #include <WorldTransform.h>
 #include<list>
 class Player {
