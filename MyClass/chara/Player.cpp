@@ -58,8 +58,8 @@ void Player::Update() {
 		move.y -= kCharacterSpeed;
 	}
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
-	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	/*worldTransform_.matWorld_ = MakeAffineMatrix(
+	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);*/
 
 	ImGui::Begin(" ");
 	ImGui::SliderFloat3("Player", inputFloat3, -33.0f, 33.0f);
