@@ -8,6 +8,16 @@ void Enemy::Initialize() {
 	model_ = Model::Create();
 }
 
+void Enemy::ApproachUpdate() {
+	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocty_);
+	if (worldTransform_.translation_.z < 0.0f) {
+
+		phase_ = Phase::Leave;
+	}
+}
+
+void Enemy::LeaveUpdate() { worldTransform_.translation_.x += 0.2f; }
+
 void Enemy::Update() {
 	worldTransform_.TransferMatrix();
 	// 移動
@@ -17,7 +27,16 @@ void Enemy::Update() {
 
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
+
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	/*switch (phase_) {
+	case Phase::Approach:
+		ApproachUpdate();
+		break;
+	case Phase::Leave:
+		LeaveUpdate();
+		break;
+	}*/
 }
 
 void Enemy::Draw(ViewProjection viewProjection_) {
