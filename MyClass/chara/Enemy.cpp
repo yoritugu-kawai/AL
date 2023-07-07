@@ -16,7 +16,10 @@ void Enemy::ApproachUpdate() {
 	}
 }
 
-void Enemy::LeaveUpdate() { worldTransform_.translation_.x += 0.2f; }
+void Enemy::LeaveUpdate() { 
+	worldTransform_.translation_.x -= 0.1f;
+	worldTransform_.translation_.y += 0.1f;
+}
 
 void Enemy::Update() {
 	worldTransform_.TransferMatrix();
