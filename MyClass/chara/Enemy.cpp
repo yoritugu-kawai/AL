@@ -29,14 +29,14 @@ void Enemy::Update() {
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	/*switch (phase_) {
+	switch (phase_) {
 	case Phase::Approach:
 		ApproachUpdate();
 		break;
 	case Phase::Leave:
 		LeaveUpdate();
 		break;
-	}*/
+	}
 }
 
 void Enemy::Draw(ViewProjection viewProjection_) {
