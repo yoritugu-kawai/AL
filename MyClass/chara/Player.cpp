@@ -80,6 +80,7 @@ void Player::Update() {
 		bullet->Update();
 	}
 
+
 	// 回転
 	const float kRotSpeed = 0.2f;
 	if (input_->PushKey(DIK_A)) {
