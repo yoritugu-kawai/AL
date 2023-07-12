@@ -10,13 +10,16 @@ void Enemy::Initialize() {
 
 void Enemy::ApproachUpdate() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocty_);
-	if (worldTransform_.translation_.z < 0.0f) {
+	if (worldTransform_.translation_.z < -20.0f) {
 
 		phase_ = Phase::Leave;
 	}
 }
 
-void Enemy::LeaveUpdate() { worldTransform_.translation_.x += 0.2f; }
+void Enemy::LeaveUpdate() { 
+	worldTransform_.translation_.x += 0.1f;
+	worldTransform_.translation_.y += 0.1f;
+}
 
 void Enemy::Update() {
 	worldTransform_.TransferMatrix();
