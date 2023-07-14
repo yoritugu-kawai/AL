@@ -68,7 +68,6 @@ void Enemy::Update() {
 	Vector3 move{0, 0, 0};
 	const float kCharacterSpeed = 0.2f;
 	move.z -= kCharacterSpeed;
-
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
