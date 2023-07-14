@@ -48,9 +48,30 @@
     <Filter Include="ソース ファイル\2d">
       <UniqueIdentifier>{814a0f6d-f847-4c45-856d-4688fa4c9e6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\scene\リソース ファイル">
+    <Filter Include="ソース ファイル\scene\Myclass">
+      <UniqueIdentifier>{b861c129-9fa1-402d-aa6b-ff65836e4d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene\Myclass\chara">
+      <UniqueIdentifier>{ccca130f-c399-4e5e-a7b5-2247cdeacf58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\math\Myclass">
+      <UniqueIdentifier>{82e6bde0-3d0a-4980-acd9-16888ce5f017}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\math\Mycalss">
+      <UniqueIdentifier>{71b1633c-75c9-4eaf-bd5c-db9e5c3fbfa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene\Myclass">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene\Myclass\chara">
+      <UniqueIdentifier>{1e34eb64-0875-4a8b-8667-fe64560b6d54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene\KAMATAENGINE">
+      <UniqueIdentifier>{6ad64184-7132-4c22-b496-89881d150626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene\KAMATAENGINE">
+      <UniqueIdentifier>{0f53930f-3e08-4b04-b3f5-796c5870f8ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,35 +84,35 @@
     <ClCompile Include="base\WinApp.cpp">
       <Filter>ソース ファイル\base</Filter>
     </ClCompile>
-    <ClCompile Include="scene\GameScene.cpp">
-      <Filter>ソース ファイル\scene</Filter>
-    </ClCompile>
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="MyClass\chara\Enemy.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MyClass\chara\Player.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="MyClass\chara\EnemyBullet.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\chara\PlayerBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\chara\Player.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\chara\Enemy.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\math\Add.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\math\Affine.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\math\TransformNormal.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\math\WorldTransformEx.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="scene\GameScene.cpp">
+      <Filter>ソース ファイル\scene\KAMATAENGINE</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +167,6 @@
     <ClInclude Include="base\WinApp.h">
       <Filter>ヘッダー ファイル\base</Filter>
     </ClInclude>
-    <ClInclude Include="scene\GameScene.h">
-      <Filter>ヘッダー ファイル\scene</Filter>
-    </ClInclude>
     <ClInclude Include="input\Input.h">
       <Filter>ヘッダー ファイル\input</Filter>
     </ClInclude>
@@ -179,26 +197,29 @@
     <ClInclude Include="2d\ImGuiManager.h">
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
-    <ClInclude Include="MyClass\chara\Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MyClass\chara\Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MyClass\chara\PlayerBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="MyClass\math\Add.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
     <ClInclude Include="MyClass\math\Affine.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
     <ClInclude Include="MyClass\math\TransformNormal.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="MyClass\chara\Enemy.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\chara\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\chara\Player.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\chara\PlayerBullet.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\GameScene.h">
+      <Filter>ヘッダー ファイル\scene\KAMATAENGINE</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
