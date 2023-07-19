@@ -119,6 +119,7 @@
     <ClCompile Include="MyClass\math\TransformNormal.cpp" />
     <ClCompile Include="MyClass\math\WorldTransformEx.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
+    <ClCompile Include="Subract.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="MyClass\math\Affine.h" />
     <ClInclude Include="MyClass\math\TransformNormal.h" />
     <ClInclude Include="scene\GameScene.h" />
+    <ClInclude Include="Subract.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">

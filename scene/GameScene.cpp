@@ -21,15 +21,14 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	// 3D画像
-	
-
 	viewProjection_.Initialize();
 	//自機
 	player_ = new Player();
 	player_->Initialize();
-	//
+	//敵
 	enemy_ = new Enemy();
 	enemy_->Initialize();
+	enemy_->SetPlayer(player_);
 	// デバックカメラ
 	debugCamera_ = new DebugCamera(12180, 720);
 	// 軸方向表示

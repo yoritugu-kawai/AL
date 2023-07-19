@@ -19,6 +19,7 @@ public:
 	void Draw(ViewProjection viewProjection_);
 
 	void Attack();
+	Vector3 GetWorldPosition();
 
 private:
 	/*画像*/
@@ -31,4 +32,7 @@ private:
 	/*弾*/
 	PlayerBullet* bullet_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
+	//
+	
+
 };

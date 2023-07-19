@@ -114,6 +114,9 @@
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene\KAMATAENGINE</Filter>
     </ClCompile>
+    <ClCompile Include="Subract.cpp">
+      <Filter>ソース ファイル\math\Myclass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="scene\GameScene.h">
       <Filter>ヘッダー ファイル\scene\KAMATAENGINE</Filter>
+    </ClInclude>
+    <ClInclude Include="Subract.h">
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
