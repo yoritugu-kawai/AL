@@ -120,6 +120,7 @@ void Enemy::Update() {
 	ImGui::End();
 }
 
+
 void Enemy::Draw(ViewProjection viewProjection_) {
 	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	for (EnemyBullet* bullet : bullets_) {
