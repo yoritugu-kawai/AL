@@ -9,9 +9,9 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	// デストラクタ
-	
+
 	player_->~Player();
-	 enemy_->~Enemy();
+	enemy_->~Enemy();
 	delete debugCamera_;
 }
 
@@ -22,10 +22,10 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	// 3D画像
 	viewProjection_.Initialize();
-	//自機
+	// 自機
 	player_ = new Player();
 	player_->Initialize();
-	//敵
+	// 敵
 	enemy_ = new Enemy();
 	enemy_->Initialize();
 	enemy_->SetPlayer(player_);
@@ -36,10 +36,71 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
+void GameScene::CheckAllCollisions() {
+	Vector3 posA, posB; // 弾
+	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
+	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
+
+#pragma region 自キャラと敵弾の当たり判定
+	posA = player_->GetWorldPosition();
+	for (EnemyBullet* enemybullet : enemyBullets) {
+		posB = enemybullet->GetWorldPosition();
+
+		float distanceAB = Length(Subtract(posA, posB));
+		float RadiusAB = (player_->GetRadius() + enemybullet->GetRadius());
+		if (distanceAB <= RadiusAB) {
+
+			player_->OnCollision();
+			enemybullet->OnCollision();
+		}
+	}
+
+#pragma endregion
+
+#pragma region 自弾と敵キャラの当たり判定
+	posA = enemy_->GetWorldPosition();
+	for (PlayerBullet* playerBullet : playerBullets) {
+		posB = playerBullet->GetWorldPosition();
+		float distanceAB = Length(Subtract(posA, posB));
+
+		if (distanceAB<=enemy_->GetRadius()+playerBullet->GetRadius()) {
+
+			enemy_->OnCollision();
+			playerBullet->OnCollision();
+		}
+	}
+
+#pragma endregion
+
+#pragma region 自弾と敵弾の当たり判定
+
+	for (PlayerBullet* playerBullet : playerBullets) {
+		for (EnemyBullet* enemyBullet : enemyBullets) {
+			posA = enemyBullet->GetWorldPosition();
+			posB = playerBullet->GetWorldPosition();
+
+			float distanceAB = Length(Subtract(posA, posB));
+			
+			if (distanceAB <= enemyBullet->GetRadius() + playerBullet->GetRadius()) {
+
+				enemyBullet->OnCollision();
+				playerBullet->OnCollision();
+			}
+		}
+	}
+
+#pragma endregion
+}
+
+
+
 void GameScene::Update() {
 	enemy_->Update();
 	player_->Update();
+	CheckAllCollisions();
 	debugCamera_->Update();
+
+	
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_SPACE)) {
 		isDebugCameraActive_ = true;
@@ -56,6 +117,10 @@ void GameScene::Update() {
 		viewProjection_.UpdateMatrix();
 	}
 }
+
+
+
+
 void GameScene::Draw() {
 
 	// コマンドリストの取得
@@ -101,3 +166,4 @@ void GameScene::Draw() {
 
 #pragma endregion
 }
+

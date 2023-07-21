@@ -20,6 +20,8 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 }
 
+void Enemy::OnCollision() {}
+
 void Enemy::ApproachInitialize() { tim = kFreInterval; }
 void Enemy::Initialize() {
 	worldTransform_.Initialize();
@@ -84,7 +86,7 @@ void Enemy::Update() {
 	worldTransform_.TransferMatrix();
 	// 移動
 	Vector3 move{0, 0, 0};
-	const float kCharacterSpeed = 0.2f;
+	const float kCharacterSpeed = 0.02f;
 	move.z -= kCharacterSpeed;
 
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);

@@ -1,10 +1,10 @@
 ﻿#pragma once
 #include "Input.h"
 #include "MyClass/chara/PlayerBullet.h"
-#include "TextureManager.h"
-#include "MyClass/math/TransformNormal.h"
 #include "MyClass/math/Add.h"
 #include "MyClass/math/Affine.h"
+#include "MyClass/math/TransformNormal.h"
+#include "TextureManager.h"
 #include <Model.h>
 #include <WorldTransform.h>
 #include <list>
@@ -19,7 +19,10 @@ public:
 	void Draw(ViewProjection viewProjection_);
 
 	void Attack();
+	void OnCollision();
 	Vector3 GetWorldPosition();
+	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
+	float GetRadius() { return radius_; }
 
 private:
 	/*画像*/
@@ -33,6 +36,5 @@ private:
 	PlayerBullet* bullet_ = nullptr;
 	std::list<PlayerBullet*> bullets_;
 	//
-	
-
+	const float radius_ = 2.0f;
 };

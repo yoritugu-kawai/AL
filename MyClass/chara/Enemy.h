@@ -25,6 +25,9 @@ public:
 	void Fire();
 	void SetPlayer(Player* player) { player_ = player; }
 	Vector3 GetWorldPosition();
+	void OnCollision();
+	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
+	float GetRadius() { return radius_; }
 
 private:
 	uint32_t textureHandle_ = 0u;
@@ -46,4 +49,5 @@ private:
 	Input* input_ = nullptr;
 	Player* player_ = nullptr;
 	Vector3 distance;
+	const float radius_ = 2.0f;
 };

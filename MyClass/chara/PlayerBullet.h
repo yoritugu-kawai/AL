@@ -12,6 +12,10 @@ public:
 	void Draw(const ViewProjection& viewProjection);
 	static const int32_t kLifeTime = 60 * 5;
 	bool IsDead() const { return isDead_; }
+	//
+	void OnCollision();
+	float_t GetRadius() { return radius_; }
+	Vector3 GetWorldPosition();
 
 private:
 	/*画像*/
@@ -22,4 +26,6 @@ private:
 	Vector3 velocuty_;
 	int32_t deathTimer_ = kLifeTime;
 	bool isDead_ = false;
+	//
+	const float_t radius_ = 1.0f;
 };

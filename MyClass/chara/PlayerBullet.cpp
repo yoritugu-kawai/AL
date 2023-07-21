@@ -8,6 +8,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	worldTransform_.translation_ = position;
 	// 速度
 	velocuty_ = velocuty;
+	isDead_ = false;
 }
 
 void PlayerBullet::Update() {
@@ -20,6 +21,23 @@ void PlayerBullet::Update() {
 }
 
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
-
+	if (isDead_ == false) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	}
+}
+
+void PlayerBullet::OnCollision() {
+
+ isDead_ = true; 
+}
+
+Vector3 PlayerBullet::GetWorldPosition() {
+	Vector3 worldPos;
+
+	// ワールド行列の「平行移動成分」を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
 }

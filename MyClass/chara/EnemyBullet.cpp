@@ -1,4 +1,4 @@
-#include "EnemyBullet.h"
+﻿#include "EnemyBullet.h"
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocuty) {
 
@@ -10,7 +10,19 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	worldTransform_.translation_ = position;
 
 	velocuty_ = velocuty;
+	isDead_ = false;
 }
+Vector3 EnemyBullet::GetWorldPosition() {
+	Vector3 worldPos;
+
+	// ワールド行列の「平行移動成分」を取得(ワールド座標)
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
+void EnemyBullet::OnCollision() { isDead_ = true; }
 
 void EnemyBullet::Update() {
 
@@ -23,5 +35,8 @@ void EnemyBullet::Update() {
 }
 
 void EnemyBullet::Draw(const ViewProjection& viewProjection) {
+	if (isDead_ == false) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	}
 }
+

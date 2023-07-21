@@ -10,8 +10,8 @@
 #include "WorldTransform.h"
 //
 #include "DebugCamera.h"
-#include "MyClass/chara/Player.h"
 #include "MyClass/chara/Enemy.h"
+#include "MyClass/chara/Player.h"
 #include "TextureManager.h"
 
 /// <summary>
@@ -44,17 +44,21 @@ public: // メンバ関数
 	/// 描画
 	/// </summary>
 	void Draw();
+	/// <summary>
+	///衝突判定と応答
+	/// </summary>
+	void CheckAllCollisions();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	// 3D画像
-	
+
 	ViewProjection viewProjection_;
-	//自機
+	// 自機
 	Player* player_ = nullptr;
-	//敵
+	// 敵
 	Enemy* enemy_ = nullptr;
 	// デバックカメラ
 	bool isDebugCameraActive_ = false;
