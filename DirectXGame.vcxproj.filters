@@ -117,6 +117,9 @@
     <ClCompile Include="Subract.cpp">
       <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
+    <ClCompile Include="MyClass\chara\Sktdome.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="Subract.h">
       <Filter>ヘッダー ファイル\math\Mycalss</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\chara\Sktdome.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

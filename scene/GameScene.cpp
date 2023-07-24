@@ -13,6 +13,8 @@ GameScene::~GameScene() {
 	player_->~Player();
 	enemy_->~Enemy();
 	delete debugCamera_;
+	delete modelSkydome_;
+	delete skydome_;
 }
 
 void GameScene::Initialize() {
@@ -29,6 +31,12 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy();
 	enemy_->Initialize();
 	enemy_->SetPlayer(player_);
+	//
+	modelSkydome_ = Model::CreateFromOBJ("CelestialSphere", true);
+	skydome_=new Skydome();
+	skydome_->Initialize(modelSkydome_);
+
+
 	// デバックカメラ
 	debugCamera_ = new DebugCamera(12180, 720);
 	// 軸方向表示
@@ -100,6 +108,7 @@ void GameScene::Update() {
 	player_->Update();
 	CheckAllCollisions();
 	debugCamera_->Update();
+	skydome_->Update();
 
 	
 #ifdef _DEBUG
@@ -150,6 +159,8 @@ void GameScene::Draw() {
 	/// </summary>
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
+	skydome_->Draw(viewProjection_);
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

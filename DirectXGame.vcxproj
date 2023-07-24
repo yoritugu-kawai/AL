@@ -114,6 +114,7 @@
     <ClCompile Include="MyClass\chara\EnemyBullet.cpp" />
     <ClCompile Include="MyClass\chara\Player.cpp" />
     <ClCompile Include="MyClass\chara\PlayerBullet.cpp" />
+    <ClCompile Include="MyClass\chara\Sktdome.cpp" />
     <ClCompile Include="MyClass\math\Add.cpp" />
     <ClCompile Include="MyClass\math\Affine.cpp" />
     <ClCompile Include="MyClass\math\TransformNormal.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="MyClass\chara\EnemyBullet.h" />
     <ClInclude Include="MyClass\chara\Player.h" />
     <ClInclude Include="MyClass\chara\PlayerBullet.h" />
+    <ClInclude Include="MyClass\chara\Sktdome.h" />
     <ClInclude Include="MyClass\math\Add.h" />
     <ClInclude Include="MyClass\math\Affine.h" />
     <ClInclude Include="MyClass\math\TransformNormal.h" />

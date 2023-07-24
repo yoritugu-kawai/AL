@@ -13,6 +13,7 @@
 #include "MyClass/chara/Enemy.h"
 #include "MyClass/chara/Player.h"
 #include "TextureManager.h"
+#include "MyClass/chara/Sktdome.h"
 
 /// <summary>
 /// ゲームシーン
@@ -63,7 +64,9 @@ private: // メンバ変数
 	// デバックカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-
+	//
+	Skydome* skydome_ = nullptr;
+	Model* modelSkydome_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
