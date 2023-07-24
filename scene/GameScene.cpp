@@ -17,6 +17,7 @@ GameScene::~GameScene() {
 	delete skydome_;
 }
 
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
