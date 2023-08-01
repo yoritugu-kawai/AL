@@ -9,10 +9,11 @@ Player::~Player() {
 	}
 }
 
-void Player::Initialize() {
+void Player::Initialize(Model* model, Vector3 position) {
 	
 	/*画像*/
-
+	this->model_ = model;
+	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
 	textureHandle_ = TextureManager::Load("player.png");
 	model_ = Model::Create();
@@ -33,7 +34,7 @@ void Player::Attack() {
 		velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
 
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
 	}
 }
@@ -43,11 +44,16 @@ void Player::OnCollision() {}
 Vector3 Player::GetWorldPosition() { 
 	Vector3 worldPos;
 
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	
 	return worldPos;
+}
+
+void Player::SetParent(const WorldTransform* parent) {
+worldTransform_.parent_=parent;
+
 }
 
 void Player::Update() {
@@ -74,9 +80,7 @@ void Player::Update() {
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	 
-	ImGui::Begin(" ");
-	ImGui::SliderFloat3("Player", inputFloat3, -33.0f, 33.0f);
-	ImGui::End();
+		worldTransform_.UpdateMatrix();
 	// 移動制限
 	const float kMoveLimitX = 33;
 	const float kMoveLimitY = 18;
@@ -109,6 +113,9 @@ void Player::Update() {
 		}
 		return false;
 	});
+	ImGui::Begin(" ");
+	ImGui::SliderFloat3("Player", inputFloat3, -33.0f, 33.0f);
+	ImGui::End();
 }
 
 void Player::Draw(ViewProjection viewProjection_) {

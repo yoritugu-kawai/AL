@@ -11,7 +11,8 @@ public:
 	void Initialize(const Vector3& worldPos, const Vector3& position);
 	void Update();
 
-	ViewProjection GetViewProjection() { return viewProjection_; }
+	ViewProjection& GetViewProjection() { return viewProjection_; }
+	WorldTransform& GetWorldTransform() { return worldTransform_; };
 
 private:
 	WorldTransform worldTransform_;

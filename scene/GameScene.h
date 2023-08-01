@@ -55,6 +55,7 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	// 3D画像
+	Model* model_ = nullptr;
 
 	ViewProjection viewProjection_;
 	// 自機

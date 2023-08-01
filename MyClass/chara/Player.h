@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Input.h"
 #include "MyClass/chara/PlayerBullet.h"
-#include"MyClass/math/ALL.h"
+#include "MyClass/math/ALL.h"
 #include "TextureManager.h"
 #include <Model.h>
 #include <WorldTransform.h>
@@ -10,7 +10,7 @@ class Player {
 public:
 	Player();
 	~Player();
-	void Initialize();
+	void Initialize(Model* model, Vector3 position);
 
 	void Update();
 
@@ -21,6 +21,7 @@ public:
 	Vector3 GetWorldPosition();
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 	float GetRadius() { return radius_; }
+	void SetParent(const WorldTransform*parent);
 
 private:
 	/*画像*/

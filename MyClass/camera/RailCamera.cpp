@@ -4,6 +4,7 @@ void RailCmamera::Initialize(const Vector3& worldPos, const Vector3& rotation) {
 	worldTransform_.translation_ = worldPos;
 	worldTransform_.Initialize();
 	worldTransform_.rotation_ = rotation;
+	//
 	viewProjection_.farZ=1200.0f ;
 	viewProjection_.Initialize();
 

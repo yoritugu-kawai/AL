@@ -25,10 +25,16 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	// 3D画像
+	model_ = Model::Create();
+	
+	// ビューの初期化
+	viewProjection_.farZ = 1000.0f;
 	viewProjection_.Initialize();
 	// 自機
 	player_ = new Player();
-	player_->Initialize();
+	Vector3 playerPosition(0.0f, -5.0f, 20.0f);
+	player_->Initialize(model_, playerPosition);
+
 	// 敵
 	enemy_ = new Enemy();
 	enemy_->Initialize();
@@ -37,14 +43,15 @@ void GameScene::Initialize() {
 	modelSkydome_ = Model::CreateFromOBJ("CelestialSphere", true);
 	skydome_=new Skydome();
 	skydome_->Initialize(modelSkydome_);
-	//カメラ
+	
+	// デバックカメラ
+	debugCamera_ = new DebugCamera(1280, 720);
+	// カメラ
 	railCmamera_ = new RailCmamera();
 	Vector3 radian = {0.0f, 0.0f, 0.0f};
 	railCmamera_->Initialize(player_->GetWorldPosition(), radian);
-
-	// デバックカメラ
-	debugCamera_ = new DebugCamera(1280, 720);
-
+	player_->SetParent(&railCmamera_->GetWorldTransform());
+	
 	// 軸方向表示
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
@@ -115,7 +122,7 @@ void GameScene::Update() {
 	CheckAllCollisions();
 	debugCamera_->Update();
 	skydome_->Update();
-	railCmamera_->Update();
+	
 	
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_K) ){
@@ -131,6 +138,7 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
 	} else {
+		railCmamera_->Update();
 		viewProjection_.matView = railCmamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = railCmamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
