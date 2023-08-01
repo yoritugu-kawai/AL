@@ -15,6 +15,7 @@ GameScene::~GameScene() {
 	delete debugCamera_;
 	delete modelSkydome_;
 	delete skydome_;
+	delete railCmamera_;
 }
 
 
@@ -32,14 +33,18 @@ void GameScene::Initialize() {
 	enemy_ = new Enemy();
 	enemy_->Initialize();
 	enemy_->SetPlayer(player_);
-	//
+	//天球
 	modelSkydome_ = Model::CreateFromOBJ("CelestialSphere", true);
 	skydome_=new Skydome();
 	skydome_->Initialize(modelSkydome_);
-
+	//カメラ
+	railCmamera_ = new RailCmamera();
+	Vector3 radian = {0.0f, 0.0f, 0.0f};
+	railCmamera_->Initialize(player_->GetWorldPosition(), radian);
 
 	// デバックカメラ
-	debugCamera_ = new DebugCamera(12180, 720);
+	debugCamera_ = new DebugCamera(1280, 720);
+
 	// 軸方向表示
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
@@ -110,12 +115,13 @@ void GameScene::Update() {
 	CheckAllCollisions();
 	debugCamera_->Update();
 	skydome_->Update();
-
+	railCmamera_->Update();
 	
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_SPACE)) {
+	if (input_->TriggerKey(DIK_K) ){
 		isDebugCameraActive_ = true;
-	}
+	} 
+
 
 #endif // DEBUG
 	// カメラ処理
@@ -125,7 +131,10 @@ void GameScene::Update() {
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
 	} else {
-		viewProjection_.UpdateMatrix();
+		viewProjection_.matView = railCmamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = railCmamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+		
 	}
 }
 

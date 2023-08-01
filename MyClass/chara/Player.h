@@ -1,9 +1,7 @@
 ﻿#pragma once
 #include "Input.h"
 #include "MyClass/chara/PlayerBullet.h"
-#include "MyClass/math/Add.h"
-#include "MyClass/math/Affine.h"
-#include "MyClass/math/TransformNormal.h"
+#include"MyClass/math/ALL.h"
 #include "TextureManager.h"
 #include <Model.h>
 #include <WorldTransform.h>

@@ -73,6 +73,12 @@
     <Filter Include="ヘッダー ファイル\scene\KAMATAENGINE">
       <UniqueIdentifier>{0f53930f-3e08-4b04-b3f5-796c5870f8ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\scene\Myclass\camera">
+      <UniqueIdentifier>{a572aff3-6e48-4ea9-9643-8bc16dd491fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene\Myclass\camera">
+      <UniqueIdentifier>{3a4fde7b-4c58-4d6c-a9f2-7f9bef30ac5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="MyClass\chara\Sktdome.cpp">
       <Filter>ソース ファイル\scene\Myclass\chara</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\camera\RailCamera.cpp">
+      <Filter>ソース ファイル\scene\Myclass\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\math\Inverse.cpp">
+      <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +244,15 @@
     </ClInclude>
     <ClInclude Include="MyClass\chara\Sktdome.h">
       <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\camera\RailCamera.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\math\Inverse.h">
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\math\ALL.h">
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

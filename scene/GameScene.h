@@ -14,7 +14,7 @@
 #include "MyClass/chara/Player.h"
 #include "TextureManager.h"
 #include "MyClass/chara/Sktdome.h"
-
+#include "MyClass/camera/RailCamera.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -64,9 +64,11 @@ private: // メンバ変数
 	// デバックカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-	//
+	//天球
 	Skydome* skydome_ = nullptr;
 	Model* modelSkydome_ = nullptr;
+	//カメラ
+	RailCmamera* railCmamera_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

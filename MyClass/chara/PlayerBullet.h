@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Input.h"
-#include "MyClass/math/Add.h"
+#include"MyClass/math/ALL.h"
 #include <Model.h>
 #include <WorldTransform.h>
 class PlayerBullet {

@@ -110,6 +110,7 @@
     <ClCompile Include="base\DirectXCommon.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyClass\camera\RailCamera.cpp" />
     <ClCompile Include="MyClass\chara\Enemy.cpp" />
     <ClCompile Include="MyClass\chara\EnemyBullet.cpp" />
     <ClCompile Include="MyClass\chara\Player.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="MyClass\chara\Sktdome.cpp" />
     <ClCompile Include="MyClass\math\Add.cpp" />
     <ClCompile Include="MyClass\math\Affine.cpp" />
+    <ClCompile Include="MyClass\math\Inverse.cpp" />
     <ClCompile Include="MyClass\math\TransformNormal.cpp" />
     <ClCompile Include="MyClass\math\WorldTransformEx.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
@@ -150,6 +152,7 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="MyClass\camera\RailCamera.h" />
     <ClInclude Include="MyClass\chara\Enemy.h" />
     <ClInclude Include="MyClass\chara\EnemyBullet.h" />
     <ClInclude Include="MyClass\chara\Player.h" />
@@ -157,6 +160,8 @@
     <ClInclude Include="MyClass\chara\Sktdome.h" />
     <ClInclude Include="MyClass\math\Add.h" />
     <ClInclude Include="MyClass\math\Affine.h" />
+    <ClInclude Include="MyClass\math\ALL.h" />
+    <ClInclude Include="MyClass\math\Inverse.h" />
     <ClInclude Include="MyClass\math\TransformNormal.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="Subract.h" />

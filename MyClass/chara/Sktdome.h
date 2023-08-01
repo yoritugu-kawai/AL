@@ -3,7 +3,7 @@
 #include <WorldTransform.h>
 #include <cassert>
 #include <ImGuiManager.h>
-#include"MyClass/math/Affine.h" 
+#include"MyClass/math/ALL.h" 
 class Skydome {
 public:
 	/// <summary>
