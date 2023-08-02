@@ -266,6 +266,7 @@ void GameScene::Draw() {
 	}
 
 	skydome_->Draw(viewProjection_);
+
 	for (EnemyBullet* bullet : enemyBullets_) {
 		bullet->Draw(viewProjection_);
 	}

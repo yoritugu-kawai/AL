@@ -96,16 +96,21 @@ void Player::Update() {
 	//
 	const float kDistancePlayerTo3DRetocle = 50.0f;
 	//
+	Vector3 Pos;
+	Pos.x = worldTransform_.matWorld_.m[3][0];
+	Pos.y = worldTransform_.matWorld_.m[3][1];
+	Pos.z = worldTransform_.matWorld_.m[3][2];
 	Vector3 offset = {0, 0, 1.0f};
 	offset = TransFormNormal(offset, worldTransform_.matWorld_);
 	offset = Normalize(offset);
 	offset.x *= kDistancePlayerTo3DRetocle;
 	offset.y *= kDistancePlayerTo3DRetocle;
 	offset.z *= kDistancePlayerTo3DRetocle;
-	worldTransform3DReticle_.translation_.x += offset.x;
-	worldTransform3DReticle_.translation_.y += offset.y;
-	worldTransform3DReticle_.translation_.z += offset.z;
-
+	worldTransform3DReticle_.translation_.x = offset.x+Pos.x;
+	worldTransform3DReticle_.translation_.y = offset.y+Pos.y;
+	worldTransform3DReticle_.translation_.z = offset.z+Pos.z;
+	worldTransform3DReticle_.UpdateMatrix();
+	worldTransform3DReticle_.TransferMatrix();
 	/*弾*/
 	Attack();
 
@@ -138,7 +143,7 @@ void Player::Update() {
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
-	model_->Draw(worldTransform3DReticle_, viewProjection_, textureHandle_);
+	model_->Draw(worldTransform3DReticle_, viewProjection_);
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/
