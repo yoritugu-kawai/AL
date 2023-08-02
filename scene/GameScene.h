@@ -10,11 +10,11 @@
 #include "WorldTransform.h"
 //
 #include "DebugCamera.h"
+#include "MyClass/camera/RailCamera.h"
 #include "MyClass/chara/Enemy.h"
 #include "MyClass/chara/Player.h"
-#include "TextureManager.h"
 #include "MyClass/chara/Sktdome.h"
-#include "MyClass/camera/RailCamera.h"
+#include "TextureManager.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -46,11 +46,15 @@ public: // メンバ関数
 	/// </summary>
 	void Draw();
 	/// <summary>
-	///衝突判定と応答
+	/// 衝突判定と応答
 	/// </summary>
 	void CheckAllCollisions();
+	/// <summary>
+	/// ゲームシーンの弾
+	/// </summary>
+	void AddEnemyBullet(EnemyBullet*enemyBullet);
 
-private: // メンバ変数
+    private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -65,12 +69,15 @@ private: // メンバ変数
 	// デバックカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
-	//天球
+	// 天球
 	Skydome* skydome_ = nullptr;
 	Model* modelSkydome_ = nullptr;
-	//カメラ
+	// カメラ
 	RailCmamera* railCmamera_ = nullptr;
 	/// <summary>
 	/// ゲームシーン用
-	/// </summary>
+	/// </summary
+	/// 
+	EnemyBullet* enemyBullet_ = nullptr;
+	std::list<EnemyBullet*> enemyBullets_;
 };

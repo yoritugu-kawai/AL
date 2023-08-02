@@ -8,7 +8,7 @@
 #include <WorldTransform.h>
 #include <list>
 class Player;
-
+class GameScene;
 class Enemy {
 public:
 	Enemy();
@@ -26,6 +26,7 @@ public:
 	void OnCollision();
 	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 	float GetRadius() { return radius_; }
+	//ゲームシーン
 
 private:
 	uint32_t textureHandle_ = 0u;
@@ -48,4 +49,6 @@ private:
 	Player* player_ = nullptr;
 	Vector3 distance;
 	const float radius_ = 2.0f;
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
 };
