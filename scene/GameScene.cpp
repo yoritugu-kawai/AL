@@ -27,7 +27,9 @@ GameScene::~GameScene() {
 }
 
 void GameScene::Initialize() {
-
+	//
+	TextureManager::Load("anchor.png");
+	//
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
@@ -60,6 +62,8 @@ void GameScene::Initialize() {
 	// 軸方向表示
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	
 }
 
 void GameScene::CheckAllCollisions() {
@@ -137,7 +141,6 @@ void GameScene::UpdateEnemyPopCommands() {
 		waitingTim--;
 		if (waitingTim <= 0) {
 			isTim = false;
-			
 		}
 		return;
 	}
@@ -163,19 +166,18 @@ void GameScene::UpdateEnemyPopCommands() {
 			// Z座標
 			std::getline(line_stream, word, ',');
 			float z = (float)std::atof(word.c_str());
-			//敵発生
-			
+			// 敵発生
+
 			enemy_ = new Enemy();
 			enemys_.push_back(enemy_);
 			enemy_->Initialize(Vector3(x, y, z));
 			enemy_->SetGameScene(this);
 			enemy_->SetPlayer(player_);
-		} 
-		else if (word.find("WAIT")==0) {
+		} else if (word.find("WAIT") == 0) {
 			std::getline(line_stream, word, ',');
-			//待ち
+			// 待ち
 			int32_t waitTim = atoi(word.c_str());
-			//待機開始
+			// 待機開始
 			isTim = true;
 			waitingTim = waitTim;
 			break;
@@ -185,7 +187,7 @@ void GameScene::UpdateEnemyPopCommands() {
 
 void GameScene::Update() {
 
-	player_->Update();
+	player_->Update(viewProjection_);
 	UpdateEnemyPopCommands();
 	for (Enemy* enemy : enemys_) {
 		enemy->Update();
@@ -281,7 +283,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
+	player_->DrawUI();
 	// スプライト描画後処理
 	Sprite::PostDraw();
 

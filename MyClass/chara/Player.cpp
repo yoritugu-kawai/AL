@@ -4,6 +4,7 @@
 Player::Player(){};
 Player::~Player() {
 	delete model_;
+	delete sprite2DReticle_;
 	for (PlayerBullet* bullet : bullets_) {
 		delete bullet;
 	}
@@ -21,6 +22,12 @@ void Player::Initialize(Model* model, Vector3 position) {
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
 	assert(model_);
+	uint32_t textureReticle = TextureManager::Load("anchor.png");
+	ReticlePos.x = 760;
+	ReticlePos.y = 320;
+	sprite2DReticle_ =
+	    Sprite::Create(textureReticle, ReticlePos, {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.5f});
+
 }
 void Player::Attack() {
 
@@ -61,7 +68,9 @@ worldTransform_.parent_=parent;
 
 }
 
-void Player::Update() {
+
+
+void Player::Update(ViewProjection viewProjection) {
 	/*画像*/
 	worldTransform_.TransferMatrix();
 	/*操作キー*/
@@ -95,7 +104,7 @@ void Player::Update() {
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 	//
 	const float kDistancePlayerTo3DRetocle = 50.0f;
-	//
+	//3Dレティクル
 	Vector3 Pos;
 	Pos.x = worldTransform_.matWorld_.m[3][0];
 	Pos.y = worldTransform_.matWorld_.m[3][1];
@@ -111,6 +120,19 @@ void Player::Update() {
 	worldTransform3DReticle_.translation_.z = offset.z+Pos.z;
 	worldTransform3DReticle_.UpdateMatrix();
 	worldTransform3DReticle_.TransferMatrix();
+	// 2Dレティクル
+	Vector3 positionReticle;
+	positionReticle.x = worldTransform3DReticle_.matWorld_.m[3][0];
+	positionReticle.y = worldTransform3DReticle_.matWorld_.m[3][1];
+	positionReticle.z = worldTransform3DReticle_.matWorld_.m[3][2];
+	//
+	Matrix4x4 matViewport =
+	    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
+	//
+	Matrix4x4 matViewProjectionViewport =
+	    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport)) ;
+	positionReticle = Transform(positionReticle, matViewProjectionViewport);
+	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 	/*弾*/
 	Attack();
 
@@ -143,11 +165,14 @@ void Player::Update() {
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
-	model_->Draw(worldTransform3DReticle_, viewProjection_);
+	model_->Draw(worldTransform3DReticle_, viewProjection_); 
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Draw(viewProjection_);
 	}
+}
+void Player::DrawUI() { 
+	sprite2DReticle_->Draw(); 
 }

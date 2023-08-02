@@ -132,6 +132,9 @@
     <ClCompile Include="MyClass\math\Inverse.cpp">
       <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
+    <ClCompile Include="MyClass\math\Transfom.cpp">
+      <Filter>ソース ファイル\math\Myclass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -252,6 +255,9 @@
       <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
     <ClInclude Include="MyClass\math\ALL.h">
+      <Filter>ヘッダー ファイル\math\Mycalss</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\math\Transfom.h">
       <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
   </ItemGroup>

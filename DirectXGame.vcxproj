@@ -121,6 +121,7 @@
     <ClCompile Include="MyClass\math\Inverse.cpp" />
     <ClCompile Include="MyClass\math\TransformNormal.cpp" />
     <ClCompile Include="MyClass\math\WorldTransformEx.cpp" />
+    <ClCompile Include="MyClass\math\Transfom.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="Subract.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="MyClass\math\Affine.h" />
     <ClInclude Include="MyClass\math\ALL.h" />
     <ClInclude Include="MyClass\math\Inverse.h" />
+    <ClInclude Include="MyClass\math\Transfom.h" />
     <ClInclude Include="MyClass\math\TransformNormal.h" />
     <ClInclude Include="scene\GameScene.h" />
     <ClInclude Include="Subract.h" />
