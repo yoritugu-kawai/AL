@@ -165,7 +165,7 @@ void Player::Update(ViewProjection viewProjection) {
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
-	model_->Draw(worldTransform3DReticle_, viewProjection_); 
+	//model_->Draw(worldTransform3DReticle_, viewProjection_); 
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/
