@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include<sstream>
 //
 #include "DebugCamera.h"
 #include "MyClass/camera/RailCamera.h"
@@ -53,7 +54,14 @@ public: // メンバ関数
 	/// ゲームシーンの弾
 	/// </summary>
 	void AddEnemyBullet(EnemyBullet*enemyBullet);
-
+    /// <summary>
+    /// 敵データ読み込み
+    /// </summary>
+	void LoadEnemyPopData();
+    /// <summary>
+    /// 敵コマンド更新
+    /// </summary>
+	void UpdateEnemyPopCommands();
     private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -66,6 +74,7 @@ public: // メンバ関数
 	Player* player_ = nullptr;
 	// 敵
 	Enemy* enemy_ = nullptr;
+	std::list<Enemy*> enemys_;
 	// デバックカメラ
 	bool isDebugCameraActive_ = false;
 	DebugCamera* debugCamera_ = nullptr;
@@ -80,4 +89,10 @@ public: // メンバ関数
 	/// 
 	EnemyBullet* enemyBullet_ = nullptr;
 	std::list<EnemyBullet*> enemyBullets_;
+	// 敵発生コマンド
+	std::stringstream enemyPopCommands;
+	//待機タイム
+	bool isTim = true;
+	int waitingTim = 120;
+
 };

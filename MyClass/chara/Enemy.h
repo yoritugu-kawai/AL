@@ -1,8 +1,8 @@
 ﻿#pragma once
 #include "Input.h"
 #include "MyClass/chara/EnemyBullet.h"
-#include"MyClass/math/ALL.h"
-#include"Subract.h"
+#include "MyClass/math/ALL.h"
+#include "Subract.h"
 #include "TextureManager.h"
 #include <Model.h>
 #include <WorldTransform.h>
@@ -13,7 +13,7 @@ class Enemy {
 public:
 	Enemy();
 	~Enemy();
-	void Initialize();
+	void Initialize(Vector3 pos);
 	void ApproachInitialize();
 
 	void Update();
@@ -24,9 +24,12 @@ public:
 	void SetPlayer(Player* player) { player_ = player; }
 	Vector3 GetWorldPosition();
 	void OnCollision();
-	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
+	//const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 	float GetRadius() { return radius_; }
-	//ゲームシーン
+	// ゲームシーン
+	void SetGameScene(GameScene* gemeScene) { gameScene_ = gemeScene; }
+	//
+	bool IsDead() const { return isDead_; }
 
 private:
 	uint32_t textureHandle_ = 0u;
@@ -40,7 +43,7 @@ private:
 	};
 	Phase phase_ = Phase();
 	EnemyBullet* bullet_ = nullptr;
-	std::list<EnemyBullet*> bullets_;
+	//std::list<EnemyBullet*> bullets_;
 	//
 	static const int kFreInterval = 60;
 	int32_t tim = 0;
@@ -49,6 +52,7 @@ private:
 	Player* player_ = nullptr;
 	Vector3 distance;
 	const float radius_ = 2.0f;
-	//ゲームシーン
+	// ゲームシーン
 	GameScene* gameScene_ = nullptr;
+	bool isDead_ = false;
 };

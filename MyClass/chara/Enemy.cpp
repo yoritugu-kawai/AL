@@ -1,35 +1,33 @@
 ﻿#include "MyClass/chara/Enemy.h"
 #include "Player.h"
+#include "GameScene.h"
 #include <ImGuiManager.h>
 #include <cassert>
 Enemy::Enemy() {}
 Enemy::~Enemy() {
 	delete model_;
-	for (EnemyBullet* bullet : bullets_) {
-		delete bullet;
-	}
+	
 }
 
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
-
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
-
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+	
 	return worldPos;
 }
 
-void Enemy::OnCollision() {}
-
 void Enemy::ApproachInitialize() { tim = kFreInterval; }
-void Enemy::Initialize() {
+void Enemy::Initialize(Vector3 pos) {
 	worldTransform_.Initialize();
-	worldTransform_.translation_.x = 5.0f;
-	worldTransform_.translation_.z = 50.0f;
+	worldTransform_.translation_.x = pos.x;
+	worldTransform_.translation_.y = pos.y;
+	worldTransform_.translation_.z = pos.z;
 	textureHandle_ = TextureManager::Load("enemy.png");
 	model_ = Model::Create();
 	ApproachInitialize();
+	isDead_ = false;
 }
 
 void Enemy::ApproachUpdate() {
@@ -55,6 +53,8 @@ void Enemy::LeaveUpdate() {
 	}
 }
 
+void Enemy::OnCollision() { isDead_ = true; }
+
 void Enemy::Fire() {
 
 	assert(player_);
@@ -77,8 +77,10 @@ void Enemy::Fire() {
 	velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
 
 	EnemyBullet* newBullet = new EnemyBullet();
+	
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
-	bullets_.push_back(newBullet);
+	gameScene_->AddEnemyBullet(newBullet);
+	//bullets_.push_back(newBullet);
 }
 
 void Enemy::Update() {
@@ -101,16 +103,6 @@ void Enemy::Update() {
 		break;
 	}
 
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Update();
-	}
-	bullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
 
 	float inputFloat[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
@@ -124,8 +116,7 @@ void Enemy::Update() {
 
 
 void Enemy::Draw(ViewProjection viewProjection_) {
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
-	for (EnemyBullet* bullet : bullets_) {
-		bullet->Draw(viewProjection_);
+	if (isDead_ == false) {
+		model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 	}
 }

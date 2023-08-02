@@ -12,7 +12,7 @@ void RailCmamera::Initialize(const Vector3& worldPos, const Vector3& rotation) {
 
 void RailCmamera::Update() 
 {
-	Vector3 move = {0.0f, 0.0f,0.2f};
+	Vector3 move = {0.0f, 0.0f,0.02f};
 	worldTransform_.translation_ = Add(worldTransform_.translation_,move);
 
 
