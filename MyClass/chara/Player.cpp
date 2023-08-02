@@ -17,7 +17,7 @@ void Player::Initialize(Model* model, Vector3 position) {
 	worldTransform_.Initialize();
 	textureHandle_ = TextureManager::Load("player.png");
 	model_ = Model::Create();
-
+	worldTransform3DReticle_.Initialize();
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
 	assert(model_);
@@ -36,6 +36,11 @@ void Player::Attack() {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
+		velocity.z = worldTransform3DReticle_.translation_.z - worldTransform_.translation_.z;
+		velocity = Normalize(velocity);
+		velocity.x*= kBulletSpeed;
+		velocity.y*=kBulletSpeed;
+		velocity.z*=kBulletSpeed;
 	}
 }
 
@@ -79,8 +84,8 @@ void Player::Update() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	 
-		worldTransform_.UpdateMatrix();
+
+	worldTransform_.UpdateMatrix();
 	// 移動制限
 	const float kMoveLimitX = 33;
 	const float kMoveLimitY = 18;
@@ -88,6 +93,18 @@ void Player::Update() {
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+	//
+	const float kDistancePlayerTo3DRetocle = 50.0f;
+	//
+	Vector3 offset = {0, 0, 1.0f};
+	offset = TransFormNormal(offset, worldTransform_.matWorld_);
+	offset = Normalize(offset);
+	offset.x *= kDistancePlayerTo3DRetocle;
+	offset.y *= kDistancePlayerTo3DRetocle;
+	offset.z *= kDistancePlayerTo3DRetocle;
+	worldTransform3DReticle_.translation_.x += offset.x;
+	worldTransform3DReticle_.translation_.y += offset.y;
+	worldTransform3DReticle_.translation_.z += offset.z;
 
 	/*弾*/
 	Attack();
@@ -121,6 +138,7 @@ void Player::Update() {
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
+	model_->Draw(worldTransform3DReticle_, viewProjection_, textureHandle_);
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/

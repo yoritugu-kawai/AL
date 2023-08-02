@@ -11,6 +11,7 @@ Vector3 Subract(const Vector3& v1, const Vector3& v2) {
 	result.z = v1.z - v2.z;
 	return result;
 }
+//毎積
 float Dot(const Vector3& v1, const Vector3& v2) {
 	float result{};
 	result = v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
@@ -22,6 +23,7 @@ float Length(const Vector3& v) {
 	result = sqrt(Dot(v, v));
 	return result;
 }
+//正規化
 Vector3 Normalize(const Vector3& v) {
 	Vector3 result{};
 	float length = Length(v);

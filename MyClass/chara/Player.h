@@ -36,4 +36,6 @@ private:
 	std::list<PlayerBullet*> bullets_;
 	//
 	const float radius_ = 2.0f;
+	//3Dレティクル　
+	WorldTransform worldTransform3DReticle_;
 };
