@@ -30,8 +30,11 @@ void Player::Initialize(Model* model, Vector3 position) {
 
 }
 void Player::Attack() {
-
-	if (input_->PushKey(DIK_SPACE)) {
+	
+	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
+		return;
+	}
+	if (joyState.Gamepad.wButtons&XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 
 		// 弾の速度
 
@@ -79,7 +82,12 @@ void Player::Update(ViewProjection viewProjection) {
 	float inputFloat3[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
-
+	// コントローラー
+	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+		move.x += (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed;
+		move.y += (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed;
+	}
+	//キーボード
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	} else if (input_->PushKey(DIK_RIGHT)) {
@@ -103,7 +111,10 @@ void Player::Update(ViewProjection viewProjection) {
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 	//
+
+
 	const float kDistancePlayerTo3DRetocle = 50.0f;
+
 	//3Dレティクル
 	Vector3 Pos;
 	Pos.x = worldTransform_.matWorld_.m[3][0];
@@ -120,11 +131,24 @@ void Player::Update(ViewProjection viewProjection) {
 	worldTransform3DReticle_.translation_.z = offset.z+Pos.z;
 	worldTransform3DReticle_.UpdateMatrix();
 	worldTransform3DReticle_.TransferMatrix();
+
+	
 	// 2Dレティクル
 
 	positionReticle.x = worldTransform3DReticle_.matWorld_.m[3][0];
 	positionReticle.y = worldTransform3DReticle_.matWorld_.m[3][1];
 	positionReticle.z = worldTransform3DReticle_.matWorld_.m[3][2];
+
+
+	// コントローラー
+	// Vector2 spritePosition = sprite2DReticle_->GetPosition();
+	
+	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
+		ReticlePos.x += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * 5.0f;
+		ReticlePos.y -= (float)joyState.Gamepad.sThumbRY / SHRT_MAX * 5.0f;
+		sprite2DReticle_->SetPosition(ReticlePos);
+	}
+
 	//
 	Matrix4x4 matViewport =
 	    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
@@ -134,7 +158,19 @@ void Player::Update(ViewProjection viewProjection) {
 	positionReticle = Transform(positionReticle, matViewProjectionViewport);
 	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
 	
+
+	
+
+
+
 	GetMouse(viewProjection);
+
+	
+
+
+	
+
+
 	/*弾*/
 	Attack();
 
@@ -170,8 +206,8 @@ void Player::GetMouse(ViewProjection viewProjection) {
 	HWND hwnd = WinApp::GetInstance()->GetHwnd();
 	ScreenToClient(hwnd, &mousePosition);
 	Vector2 Reticle;
-	Reticle.x = float(mousePosition.x) ;
-	Reticle.y = float(mousePosition.y);
+	Reticle.x = float(ReticlePos.x);
+	Reticle.y = float(ReticlePos.y);
 	sprite2DReticle_->SetPosition(Reticle);
 
 	Matrix4x4 matVPV = Multiply(
@@ -181,8 +217,8 @@ void Player::GetMouse(ViewProjection viewProjection) {
 	        MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1)));
 	Matrix4x4 matInveresVPV = Inverse(matVPV);
 	
-	Vector3 PosNear = Vector3(float(mousePosition.x), float(mousePosition.y), 0);
-	Vector3 PosFar = Vector3(float(mousePosition.x), float(mousePosition.y), 1);
+	Vector3 PosNear = Vector3(float(ReticlePos.x), float(ReticlePos.y), 0);
+	Vector3 PosFar = Vector3(float(ReticlePos.x), float(ReticlePos.y), 1);
 	//
 	PosNear = Transform(PosNear, matInveresVPV);
 	PosFar = Transform(PosFar, matInveresVPV);
@@ -204,7 +240,7 @@ void Player::GetMouse(ViewProjection viewProjection) {
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
-    model_->Draw(worldTransform3DReticle_, viewProjection_); 
+    //model_->Draw(worldTransform3DReticle_, viewProjection_); 
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/
