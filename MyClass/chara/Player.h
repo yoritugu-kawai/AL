@@ -23,7 +23,8 @@ public:
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 	float GetRadius() { return radius_; }
 	void SetParent(const WorldTransform* parent);
-
+	//
+	void GetMouse(ViewProjection viewProjection);
 	/// <summary>
 	/// UI描画
 	/// </summary>
@@ -47,4 +48,5 @@ private:
 	// 2Dレティクル用スプライト
 	Sprite* sprite2DReticle_ = nullptr;
 	Vector2 ReticlePos ;
+	Vector3 positionReticle;
 };
