@@ -11,7 +11,7 @@ Player::~Player() {
 }
 
 void Player::Initialize(Model* model, Vector3 position) {
-	
+
 	/*画像*/
 	this->model_ = model;
 	worldTransform_.translation_ = position;
@@ -27,14 +27,13 @@ void Player::Initialize(Model* model, Vector3 position) {
 	ReticlePos.y = 320;
 	sprite2DReticle_ =
 	    Sprite::Create(textureReticle, ReticlePos, {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.5f});
-
 }
 void Player::Attack() {
-	
+
 	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
 		return;
 	}
-	if (joyState.Gamepad.wButtons&XINPUT_GAMEPAD_RIGHT_SHOULDER) {
+	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 
 		// 弾の速度
 
@@ -45,7 +44,7 @@ void Player::Attack() {
 
 		PlayerBullet* newBullet = new PlayerBullet();
 		velocity.x = worldTransform3DReticle_.translation_.x - worldTransform_.translation_.x;
-		velocity.y = worldTransform3DReticle_.translation_.y- worldTransform_.translation_.y;
+		velocity.y = worldTransform3DReticle_.translation_.y - worldTransform_.translation_.y;
 		velocity.z = worldTransform3DReticle_.translation_.z - worldTransform_.translation_.z;
 		velocity = Normalize(velocity);
 		velocity.x *= kBulletSpeed;
@@ -53,26 +52,22 @@ void Player::Attack() {
 		velocity.z *= kBulletSpeed;
 		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
-
 	}
 }
 
 void Player::OnCollision() {}
 
-Vector3 Player::GetWorldPosition() { 
+Vector3 Player::GetWorldPosition() {
 	Vector3 worldPos;
 
 	worldPos.x = worldTransform_.matWorld_.m[3][0];
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
-	
+
 	return worldPos;
 }
 
-void Player::SetParent(const WorldTransform* parent) {
-worldTransform_.parent_=parent;
-
-}
+void Player::SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 void Player::Update(ViewProjection viewProjection) {
 	/*画像*/
 	worldTransform_.TransferMatrix();
@@ -87,7 +82,7 @@ void Player::Update(ViewProjection viewProjection) {
 		move.x += (float)joyState.Gamepad.sThumbLX / SHRT_MAX * kCharacterSpeed;
 		move.y += (float)joyState.Gamepad.sThumbLY / SHRT_MAX * kCharacterSpeed;
 	}
-	//キーボード
+	// キーボード
 	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
 	} else if (input_->PushKey(DIK_RIGHT)) {
@@ -112,10 +107,9 @@ void Player::Update(ViewProjection viewProjection) {
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
 	//
 
-
 	const float kDistancePlayerTo3DRetocle = 50.0f;
 
-	//3Dレティクル
+	// 3Dレティクル
 	Vector3 Pos;
 	Pos.x = worldTransform_.matWorld_.m[3][0];
 	Pos.y = worldTransform_.matWorld_.m[3][1];
@@ -126,23 +120,21 @@ void Player::Update(ViewProjection viewProjection) {
 	offset.x *= kDistancePlayerTo3DRetocle;
 	offset.y *= kDistancePlayerTo3DRetocle;
 	offset.z *= kDistancePlayerTo3DRetocle;
-	worldTransform3DReticle_.translation_.x = offset.x+Pos.x;
-	worldTransform3DReticle_.translation_.y = offset.y+Pos.y;
-	worldTransform3DReticle_.translation_.z = offset.z+Pos.z;
+	worldTransform3DReticle_.translation_.x = offset.x + Pos.x;
+	worldTransform3DReticle_.translation_.y = offset.y + Pos.y;
+	worldTransform3DReticle_.translation_.z = offset.z + Pos.z;
 	worldTransform3DReticle_.UpdateMatrix();
 	worldTransform3DReticle_.TransferMatrix();
 
-	
 	// 2Dレティクル
 
 	positionReticle.x = worldTransform3DReticle_.matWorld_.m[3][0];
 	positionReticle.y = worldTransform3DReticle_.matWorld_.m[3][1];
 	positionReticle.z = worldTransform3DReticle_.matWorld_.m[3][2];
 
-
 	// コントローラー
 	// Vector2 spritePosition = sprite2DReticle_->GetPosition();
-	
+
 	if (Input::GetInstance()->GetJoystickState(0, joyState)) {
 		ReticlePos.x += (float)joyState.Gamepad.sThumbRX / SHRT_MAX * 5.0f;
 		ReticlePos.y -= (float)joyState.Gamepad.sThumbRY / SHRT_MAX * 5.0f;
@@ -154,22 +146,11 @@ void Player::Update(ViewProjection viewProjection) {
 	    MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1);
 	//
 	Matrix4x4 matViewProjectionViewport =
-	    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport)) ;
+	    Multiply(viewProjection.matView, Multiply(viewProjection.matProjection, matViewport));
 	positionReticle = Transform(positionReticle, matViewProjectionViewport);
 	sprite2DReticle_->SetPosition(Vector2(positionReticle.x, positionReticle.y));
-	
-
-	
-
-
 
 	GetMouse(viewProjection);
-
-	
-
-
-	
-
 
 	/*弾*/
 	Attack();
@@ -177,7 +158,6 @@ void Player::Update(ViewProjection viewProjection) {
 	for (PlayerBullet* bullet : bullets_) {
 		bullet->Update();
 	}
-
 
 	// 回転
 	const float kRotSpeed = 0.2f;
@@ -216,18 +196,17 @@ void Player::GetMouse(ViewProjection viewProjection) {
 	        viewProjection.matProjection,
 	        MakeViewportMatrix(0, 0, WinApp::kWindowWidth, WinApp::kWindowHeight, 0, 1)));
 	Matrix4x4 matInveresVPV = Inverse(matVPV);
-	
+
 	Vector3 PosNear = Vector3(float(ReticlePos.x), float(ReticlePos.y), 0);
 	Vector3 PosFar = Vector3(float(ReticlePos.x), float(ReticlePos.y), 1);
 	//
 	PosNear = Transform(PosNear, matInveresVPV);
 	PosFar = Transform(PosFar, matInveresVPV);
-	//マウスレイ
+	// マウスレイ
 	Vector3 mouseDirection = Add(PosFar, PosNear);
 	mouseDirection = Normalize(mouseDirection);
 	const float kDistanceTestobject = 50.0f;
-	worldTransform3DReticle_.translation_.x =
-	    PosNear.x + mouseDirection.x * kDistanceTestobject;
+	worldTransform3DReticle_.translation_.x = PosNear.x + mouseDirection.x * kDistanceTestobject;
 	worldTransform3DReticle_.translation_.y = PosNear.y + mouseDirection.y * kDistanceTestobject;
 	worldTransform3DReticle_.translation_.z = PosNear.z + mouseDirection.z * kDistanceTestobject;
 	//
@@ -235,12 +214,10 @@ void Player::GetMouse(ViewProjection viewProjection) {
 	worldTransform3DReticle_.TransferMatrix();
 }
 
-
-
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
-	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
-    //model_->Draw(worldTransform3DReticle_, viewProjection_); 
+	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	// model_->Draw(worldTransform3DReticle_, viewProjection_);
 	/*操作キー*/
 	input_ = Input::GetInstance();
 	/*弾*/
@@ -248,6 +225,4 @@ void Player::Draw(ViewProjection viewProjection_) {
 		bullet->Draw(viewProjection_);
 	}
 }
-void Player::DrawUI() { 
-	sprite2DReticle_->Draw(); 
-}
+void Player::DrawUI() { sprite2DReticle_->Draw(); }
