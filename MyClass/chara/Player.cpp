@@ -80,7 +80,7 @@ void Player::Update() {
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	 
-		worldTransform_.UpdateMatrix();
+	worldTransform_.UpdateMatrix();
 	// 移動制限
 	const float kMoveLimitX = 33;
 	const float kMoveLimitY = 18;
