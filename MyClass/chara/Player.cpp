@@ -43,6 +43,7 @@ void Player::Attack() {
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
+		//
 		velocity.z = worldTransform3DReticle_.translation_.z - worldTransform_.translation_.z;
 		velocity = Normalize(velocity);
 		velocity.x*= kBulletSpeed;
