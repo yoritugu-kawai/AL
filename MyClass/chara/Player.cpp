@@ -160,6 +160,7 @@ void Player::Update(ViewProjection viewProjection) {
 	});
 	ImGui::Begin(" ");
 	ImGui::SliderFloat3("Player", inputFloat3, -33.0f, 33.0f);
+
 	ImGui::End();
 }
 
