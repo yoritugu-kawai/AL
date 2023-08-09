@@ -9,6 +9,32 @@ Enemy::~Enemy() {
 	
 }
 
+void Enemy::Fire() {
+
+	assert(player_);
+	const float kBulletSpeed = 1.0f;
+	// Vector3 velocity(0, 0, kBulletSpeed);
+
+	Vector3 playerPos = player_->GetWorldPosition();
+	Vector3 enemyPos = GetWorldPosition();
+	distance = Subract(playerPos, enemyPos);
+	Vector3 norma = Normalize(distance);
+
+	// 弾の速度
+	Vector3 velocity = {
+	    norma.x, norma.y, norma.z * kBulletSpeed
+
+	};
+
+	velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
+
+	EnemyBullet* newBullet = new EnemyBullet();
+
+	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+	gameScene_->AddEnemyBullet(newBullet);
+	// bullets_.push_back(newBullet);
+}
+
 Vector3 Enemy::GetWorldPosition() {
 	Vector3 worldPos;
 	worldPos.x = worldTransform_.matWorld_.m[3][0];
@@ -17,7 +43,9 @@ Vector3 Enemy::GetWorldPosition() {
 	
 	return worldPos;
 }
-
+/**************************************************/
+/*　　　　　　　　　　　　初期化　　　　　　　　　*/
+/*************************************************/
 void Enemy::ApproachInitialize() { tim = kFreInterval; }
 void Enemy::Initialize(Vector3 pos) {
 	worldTransform_.Initialize();
@@ -29,7 +57,9 @@ void Enemy::Initialize(Vector3 pos) {
 	ApproachInitialize();
 	isDead_ = false;
 }
-
+/**************************************************/
+/*　　　　　　　　　　　　更新　　　　　　　　　*/
+/*************************************************/
 void Enemy::ApproachUpdate() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocty_);
 	if (worldTransform_.translation_.z < -20.0f) {
@@ -52,36 +82,14 @@ void Enemy::LeaveUpdate() {
 		tim = 0;
 	}
 }
+void (Enemy::*Enemy::spPhaseTable[])() = {
 
+    &Enemy::ApproachUpdate,
+    &Enemy::LeaveUpdate,
+
+};
 void Enemy::OnCollision() { isDead_ = true; }
 
-void Enemy::Fire() {
-
-	assert(player_);
-	const float kBulletSpeed = 1.0f;
-	// Vector3 velocity(0, 0, kBulletSpeed);
-
-	Vector3 playerPos = player_->GetWorldPosition();
-	Vector3 enemyPos = GetWorldPosition();
-	distance = Subract(playerPos, enemyPos);
-	Vector3 norma = Normalize(distance);
-
-	// 弾の速度
-	Vector3 velocity = {
-	    norma.x,
-		norma.y, 
-		norma.z * kBulletSpeed
-
-	};
-
-	velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
-
-	EnemyBullet* newBullet = new EnemyBullet();
-	
-	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
-	gameScene_->AddEnemyBullet(newBullet);
-	//bullets_.push_back(newBullet);
-}
 
 void Enemy::Update() {
 
@@ -94,15 +102,16 @@ void Enemy::Update() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	switch (phase_) {
-	case Phase::Approach:
-		ApproachUpdate();
-		break;
-	case Phase::Leave:
-		LeaveUpdate();
-		break;
-	}
+	//switch (phase_) {
+	//case Phase::Approach:
+	//	ApproachUpdate();
+	//	break;
+	//case Phase::Leave:
+	//	LeaveUpdate();
+	//	break;
+	//}
 
+	   (this->*spPhaseTable[static_cast<size_t>(phase_)])(); 
 
 	float inputFloat[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
@@ -113,7 +122,9 @@ void Enemy::Update() {
 	//ImGui::InputInt("Time", time);
 	ImGui::End();
 }
-
+/**************************************************/
+/*　　　　　　　　　　　　描画　　　　　　　　　*/
+/*************************************************/
 
 void Enemy::Draw(ViewProjection viewProjection_) {
 	if (isDead_ == false) {

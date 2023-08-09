@@ -163,6 +163,7 @@ void Player::Update(ViewProjection viewProjection) {
 	ImGui::End();
 }
 
+
 void Player::Draw(ViewProjection viewProjection_) {
 	/*画像*/
 	model_->Draw(worldTransform_, viewProjection_,textureHandle_);
