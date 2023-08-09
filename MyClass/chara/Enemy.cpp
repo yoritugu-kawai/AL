@@ -118,6 +118,9 @@ void Enemy::Update() {
 	// ImGui::InputInt("Time", time);
 	ImGui::End();
 }
+/**************************************************/
+/*　　　　　　　　　　　　描画　　　　　　　　　*/
+/*************************************************/
 
 void Enemy::Draw(ViewProjection viewProjection_) {
 	if (isDead_ == false) {

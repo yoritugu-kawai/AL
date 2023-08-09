@@ -124,7 +124,6 @@
     <ClCompile Include="MyClass\math\Transfom.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
     <ClCompile Include="Subract.cpp" />
-    <ClCompile Include="ソース.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
