@@ -91,19 +91,22 @@ void Enemy::Update() {
 	const float kCharacterSpeed = 0.02f;
 	move.z -= kCharacterSpeed;
 
+	
+	
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	//switch (phase_) {
-	//case Phase::Approach:
-	//	ApproachUpdate();
-	//	break;
-	//case Phase::Leave:
-	//	LeaveUpdate();
-	//	break;
-	//}
+	switch (phase_) {
+	case Phase::Approach:
+		ApproachUpdate();
+		break;
+	case Phase::Leave:
+		LeaveUpdate();
+		break;
+	}
 
-	(this->*spPhaseTable[static_cast<size_t>(phase_)])();
+	//(this->*spPhaseTable[static_cast<size_t>(phase_)])();
+
 	float inputFloat[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};

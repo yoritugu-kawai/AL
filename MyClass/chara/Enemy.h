@@ -11,6 +11,10 @@ class Player;
 class GameScene;
 class Enemy {
 public:
+	enum class Phase {
+		Approach, // 接近
+		Leave,    // 離脱
+	};
 	Enemy();
 	~Enemy();
 	void Initialize(Vector3 pos);
@@ -37,10 +41,8 @@ private:
 	WorldTransform worldTransform_;
 	const float speed = -0.05f;
 	Vector3 enemyVelocty_ = {0.0f, 0.0f, speed};
-	enum class Phase {
-		Approach, // 接近
-		Leave,    // 離脱
-	};
+	
+	static void (Enemy::*spPhaseTable[])();
 	Phase phase_ = Phase();
 	EnemyBullet* bullet_ = nullptr;
 	//std::list<EnemyBullet*> bullets_;
