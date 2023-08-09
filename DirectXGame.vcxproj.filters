@@ -135,6 +135,9 @@
     <ClCompile Include="MyClass\math\Transfom.cpp">
       <Filter>ソース ファイル\math\Myclass</Filter>
     </ClCompile>
+    <ClCompile Include="ソース.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
