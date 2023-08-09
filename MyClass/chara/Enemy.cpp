@@ -1,13 +1,10 @@
 ﻿#include "MyClass/chara/Enemy.h"
-#include "Player.h"
 #include "GameScene.h"
+#include "Player.h"
 #include <ImGuiManager.h>
 #include <cassert>
 Enemy::Enemy() {}
-Enemy::~Enemy() {
-	delete model_;
-	
-}
+Enemy::~Enemy() { delete model_; }
 
 void Enemy::Fire() {
 
@@ -40,7 +37,7 @@ Vector3 Enemy::GetWorldPosition() {
 	worldPos.x = worldTransform_.matWorld_.m[3][0];
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
-	
+
 	return worldPos;
 }
 /**************************************************/
@@ -90,7 +87,6 @@ void (Enemy::*Enemy::spPhaseTable[])() = {
 };
 void Enemy::OnCollision() { isDead_ = true; }
 
-
 void Enemy::Update() {
 
 	worldTransform_.TransferMatrix();
@@ -102,16 +98,16 @@ void Enemy::Update() {
 	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
-	//switch (phase_) {
-	//case Phase::Approach:
+	// switch (phase_) {
+	// case Phase::Approach:
 	//	ApproachUpdate();
 	//	break;
-	//case Phase::Leave:
+	// case Phase::Leave:
 	//	LeaveUpdate();
 	//	break;
-	//}
+	// }
 
-	   (this->*spPhaseTable[static_cast<size_t>(phase_)])(); 
+	(this->*spPhaseTable[static_cast<size_t>(phase_)])();
 
 	float inputFloat[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
@@ -119,7 +115,7 @@ void Enemy::Update() {
 
 	ImGui::Begin(" ");
 	ImGui::SliderFloat3("Enemy", inputFloat, -10.0f, 3.0f);
-	//ImGui::InputInt("Time", time);
+	// ImGui::InputInt("Time", time);
 	ImGui::End();
 }
 /**************************************************/
