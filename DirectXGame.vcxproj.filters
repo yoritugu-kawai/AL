@@ -79,6 +79,12 @@
     <Filter Include="ソース ファイル\scene\Myclass\camera">
       <UniqueIdentifier>{3a4fde7b-4c58-4d6c-a9f2-7f9bef30ac5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\scene\Myclass\chara\enemy">
+      <UniqueIdentifier>{2d7020c8-d709-4d83-b016-99ad27d79faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene\Myclass\chara\enemy">
+      <UniqueIdentifier>{84ab8f03-fa81-4ed5-8979-6c6a438e8e7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,16 +99,10 @@
     <ClCompile Include="2d\ImGuiManager.cpp">
       <Filter>ソース ファイル\2d</Filter>
     </ClCompile>
-    <ClCompile Include="MyClass\chara\EnemyBullet.cpp">
-      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
-    </ClCompile>
     <ClCompile Include="MyClass\chara\PlayerBullet.cpp">
       <Filter>ソース ファイル\scene\Myclass\chara</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\chara\Player.cpp">
-      <Filter>ソース ファイル\scene\Myclass\chara</Filter>
-    </ClCompile>
-    <ClCompile Include="MyClass\chara\Enemy.cpp">
       <Filter>ソース ファイル\scene\Myclass\chara</Filter>
     </ClCompile>
     <ClCompile Include="MyClass\math\Add.cpp">
@@ -134,6 +134,21 @@
     </ClCompile>
     <ClCompile Include="MyClass\math\Transfom.cpp">
       <Filter>ソース ファイル\math\Myclass</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\chara\EnemyBullet.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass\chara\Enemy.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="IEnemySetat.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyApproach.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyLeaveh.cpp">
+      <Filter>ソース ファイル\scene\Myclass\chara\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,12 +242,6 @@
     <ClInclude Include="MyClass\math\TransformNormal.h">
       <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
-    <ClInclude Include="MyClass\chara\Enemy.h">
-      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
-    </ClInclude>
-    <ClInclude Include="MyClass\chara\EnemyBullet.h">
-      <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
-    </ClInclude>
     <ClInclude Include="MyClass\chara\Player.h">
       <Filter>ヘッダー ファイル\scene\Myclass\chara</Filter>
     </ClInclude>
@@ -259,6 +268,21 @@
     </ClInclude>
     <ClInclude Include="MyClass\math\Transfom.h">
       <Filter>ヘッダー ファイル\math\Mycalss</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\chara\Enemy.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass\chara\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="IEnemySetat.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyApproach.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyLeaveh.h">
+      <Filter>ヘッダー ファイル\scene\Myclass\chara\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

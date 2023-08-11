@@ -44,6 +44,7 @@ Vector3 Enemy::GetWorldPosition() {
 /*　　　　　　　　　　　　初期化　　　　　　　　　*/
 /*************************************************/
 void Enemy::ApproachInitialize() { tim = kFreInterval; }
+
 void Enemy::Initialize(Vector3 pos) {
 	worldTransform_.Initialize();
 	worldTransform_.translation_.x = pos.x;
@@ -53,49 +54,24 @@ void Enemy::Initialize(Vector3 pos) {
 	model_ = Model::Create();
 	ApproachInitialize();
 	isDead_ = false;
+	enemyState = new EnemySttatApproach;
+
 }
 /**************************************************/
 /*　　　　　　　　　　　　更新　　　　　　　　　*/
 /*************************************************/
-void Enemy::ApproachUpdate() {
-	worldTransform_.translation_ = Add(worldTransform_.translation_, enemyVelocty_);
-	if (worldTransform_.translation_.z < -20.0f) {
 
-		phase_ = Phase::Leave;
-	}
-	tim++;
-	if (tim >= 60) {
-		Fire();
-		tim = 0;
-	}
-}
-
-void Enemy::LeaveUpdate() {
-	worldTransform_.translation_.x -= 0.1f;
-	worldTransform_.translation_.y += 0.1f;
-	tim++;
-	if (tim >= 60) {
-		Fire();
-		tim = 0;
-	}
-}
-void (Enemy::*Enemy::spPhaseTable[])() = {
-
-    &Enemy::ApproachUpdate,
-    &Enemy::LeaveUpdate,
-
-};
 void Enemy::OnCollision() { isDead_ = true; }
 
 void Enemy::Update() {
 
 	worldTransform_.TransferMatrix();
 	// 移動
-	Vector3 move{0, 0, 0};
-	const float kCharacterSpeed = 0.02f;
-	move.z -= kCharacterSpeed;
-
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	//Vector3 move{0, 0, 0};
+	//const float kCharacterSpeed = 0.02f;
+	//move.z -= kCharacterSpeed;
+	enemyState->Update(this);
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	// switch (phase_) {
@@ -107,8 +83,8 @@ void Enemy::Update() {
 	//	break;
 	// }
 
-	(this->*spPhaseTable[static_cast<size_t>(phase_)])();
-
+	//(this->*spPhaseTable[static_cast<size_t>(phase_)])();
+	
 	float inputFloat[3] = {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};

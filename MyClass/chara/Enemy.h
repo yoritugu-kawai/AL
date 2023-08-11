@@ -2,6 +2,9 @@
 #include "Input.h"
 #include "MyClass/chara/EnemyBullet.h"
 #include "MyClass/math/ALL.h"
+#include"EnemyApproach.h"
+#include"EnemyLeaveh.h"
+#include"IEnemySetat.h"
 #include "Subract.h"
 #include "TextureManager.h"
 #include <Model.h>
@@ -23,8 +26,8 @@ public:
 	void ApproachInitialize();
 	//更新
 	void Update();
-	void ApproachUpdate();
-	void LeaveUpdate();
+	/*void ApproachUpdate();
+	void LeaveUpdate();*/
 	//描画
 	void Draw(ViewProjection viewProjection_);
 	//弾
@@ -32,9 +35,15 @@ public:
 	//セッター
 	void SetPlayer(Player* player) { player_ = player; }
 	void SetGameScene(GameScene* gemeScene) { gameScene_ = gemeScene; }
+	//void SetWrod(WorldTransform world) { worldTransform_ = world; }
+	void SteTransfor(Vector3 Transform) { worldTransform_.translation_ = Transform; }
+	void StateChnji(IenemyState* iEnemyState) { enemyState = iEnemyState; }
 	//ゲッター
 	Vector3 GetWorldPosition();
 	float GetRadius() { return radius_; }
+	WorldTransform GetWorldTransfom() { return worldTransform_; }
+	
+	Vector3 GetVelocty() { return enemyVelocty_; }
 	//当たり判定
 	void OnCollision();
 	// フラグ
@@ -50,7 +59,8 @@ private:
 	Vector3 enemyVelocty_ = {0.0f, 0.0f, speed};
 	//動き変換
 	
-	static void (Enemy::*spPhaseTable[])();
+	//static void (Enemy::*spPhaseTable[])();
+	//
 	Phase phase_ = Phase();
 	//弾
 	EnemyBullet* bullet_ = nullptr;
@@ -66,4 +76,7 @@ private:
 	// ゲームシーン
 	GameScene* gameScene_ = nullptr;
 	bool isDead_ = false;
+	//
+	IenemyState* enemyState = nullptr;
+	
 };
