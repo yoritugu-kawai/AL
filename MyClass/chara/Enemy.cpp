@@ -91,11 +91,11 @@ void Enemy::Update() {
 
 	worldTransform_.TransferMatrix();
 	// 移動
-	Vector3 move{0, 0, 0};
+	/*Vector3 move{0, 0, 0};
 	const float kCharacterSpeed = 0.02f;
-	move.z -= kCharacterSpeed;
+	move.z -= kCharacterSpeed;*/
 
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(
 	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	// switch (phase_) {
