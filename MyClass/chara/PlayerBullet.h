@@ -3,7 +3,8 @@
 #include "MyClass/math/Add.h"
 #include <Model.h>
 #include <WorldTransform.h>
-class PlayerBullet {
+#include"Collder.h"
+class PlayerBullet:public Collider {
 public:
 	void Initialize(Model* model, const Vector3& position, const Vector3& velocuty);
 
@@ -13,9 +14,9 @@ public:
 	static const int32_t kLifeTime = 60 * 5;
 	bool IsDead() const { return isDead_; }
 	//
-	void OnCollision();
+	void OnCollision() override;
 	float_t GetRadius() { return radius_; }
-	Vector3 GetWorldPosition();
+	Vector3 GetWorldPosition()override;
 
 private:
 	/*画像*/

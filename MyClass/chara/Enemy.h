@@ -9,9 +9,10 @@
 #include <Model.h>
 #include <WorldTransform.h>
 #include <list>
+#include"Collder.h"
 class Player;
 
-class Enemy {
+class Enemy:public Collider {
 public:
 	Enemy();
 	~Enemy();
@@ -24,8 +25,8 @@ public:
 	void Draw(ViewProjection viewProjection_);
 	void Fire();
 	void SetPlayer(Player* player) { player_ = player; }
-	Vector3 GetWorldPosition();
-	void OnCollision();
+	Vector3 GetWorldPosition() override;
+	void OnCollision() override;
 	const std::list<EnemyBullet*>& GetBullets() const { return bullets_; }
 	float GetRadius() { return radius_; }
 

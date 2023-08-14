@@ -65,6 +65,8 @@ private: // メンバ変数
 	DebugCamera* debugCamera_ = nullptr;
 
 	/// <summary>
-	/// ゲームシーン用
+	/// コライダー
 	/// </summary>
+	void ChekCollisionPair(Collider* colliderA, Collider* colliderB);
+	bool CheckBallCollosion(Vector3 v1, float v1Radious, Vector3 v2, float v2Radious);
 };

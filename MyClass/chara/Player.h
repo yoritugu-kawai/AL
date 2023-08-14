@@ -8,7 +8,8 @@
 #include <Model.h>
 #include <WorldTransform.h>
 #include <list>
-class Player {
+#include"Collder.h"
+class Player:public Collider {
 public:
 	Player();
 	~Player();
@@ -19,8 +20,8 @@ public:
 	void Draw(ViewProjection viewProjection_);
 
 	void Attack();
-	void OnCollision();
-	Vector3 GetWorldPosition();
+	void OnCollision() override;
+	Vector3 GetWorldPosition() override;
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 	float GetRadius() { return radius_; }
 

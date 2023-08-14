@@ -227,6 +227,9 @@
     <ClInclude Include="Subract.h">
       <Filter>ヘッダー ファイル\math\Mycalss</Filter>
     </ClInclude>
+    <ClInclude Include="Collder.h">
+      <Filter>ヘッダー ファイル\scene\Myclass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
