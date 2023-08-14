@@ -20,6 +20,7 @@ public:
 
 	void Attack();
 	Vector3 GetWorldPosition();
+	WorldTransform GetWorldTransform() { return worldTransform_; }
 
 private:
 	/*画像*/
