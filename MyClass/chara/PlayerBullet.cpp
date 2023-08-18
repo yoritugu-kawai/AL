@@ -9,6 +9,8 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	// 速度
 	velocuty_ = velocuty;
 	isDead_ = false;
+	steCollisionAttribute(kCollisionAttributePlayer);
+	steCollisionMask(kCollisionAttributeEnemyr);
 }
 
 void PlayerBullet::Update() {

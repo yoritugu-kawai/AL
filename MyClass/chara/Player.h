@@ -9,7 +9,8 @@
 #include <WorldTransform.h>
 #include <list>
 #include"Collder.h"
-class Player:public Collider {
+#include<CollisionConfig.h>
+class Player : public Collider {
 public:
 	Player();
 	~Player();

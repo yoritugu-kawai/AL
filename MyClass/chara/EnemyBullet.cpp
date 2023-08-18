@@ -11,6 +11,8 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 
 	velocuty_ = velocuty;
 	isDead_ = false;
+	steCollisionAttribute(kCollisionAttributeEnemyr);
+	steCollisionMask(kCollisionAttributePlayer);
 }
 Vector3 EnemyBullet::GetWorldPosition() {
 	Vector3 worldPos;

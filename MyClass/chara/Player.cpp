@@ -20,6 +20,8 @@ void Player::Initialize() {
 	worldTransform_.Initialize();
 	input_ = Input::GetInstance();
 	assert(model_);
+	steCollisionAttribute(kCollisionAttributePlayer);
+	steCollisionMask(kCollisionAttributeEnemyr);
 }
 void Player::Attack() {
 

@@ -10,6 +10,7 @@
 #include <WorldTransform.h>
 #include <list>
 #include"Collder.h"
+#include<CollisionConfig.h>
 class Player;
 
 class Enemy:public Collider {

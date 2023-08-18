@@ -23,6 +23,7 @@ Vector3 Enemy::GetWorldPosition() {
 void Enemy::OnCollision() {}
 
 void Enemy::ApproachInitialize() { tim = kFreInterval; }
+
 void Enemy::Initialize() {
 	worldTransform_.Initialize();
 	worldTransform_.translation_.x = 5.0f;
@@ -30,6 +31,8 @@ void Enemy::Initialize() {
 	textureHandle_ = TextureManager::Load("enemy.png");
 	model_ = Model::Create();
 	ApproachInitialize();
+	steCollisionAttribute(kCollisionAttributeEnemyr);
+	steCollisionMask(kCollisionAttributePlayer);
 }
 
 void Enemy::ApproachUpdate() {

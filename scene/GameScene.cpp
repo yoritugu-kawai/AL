@@ -1,6 +1,6 @@
 #include "GameScene.h"
 #include <cassert>
-
+#include<cstdint>
 #include "AxisIndicator.h"
 #include "ImGuiManager.h"
 #include "PrimitiveDrawer.h"
@@ -41,38 +41,36 @@ void GameScene::CheckAllCollisions() {
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
 	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
 
-#pragma region 自キャラと敵弾の当たり判定
-	
-	for (EnemyBullet* enemybullet : enemyBullets) {
-		ChekCollisionPair(player_, enemybullet);
+	std::list<Collider*> colliders_;
+	colliders_.push_back(player_);
+	colliders_.push_back(enemy_);
+	for (PlayerBullet* bullet : playerBullets) {
+		colliders_.push_back(bullet);
 	}
 
-
-
-#pragma endregion
-
-#pragma region 自弾と敵キャラの当たり判定
-	
-	for (PlayerBullet* playerBullet : playerBullets) {
-		ChekCollisionPair(playerBullet, enemy_);
+	for (EnemyBullet* bullet : enemyBullets) {
+		colliders_.push_back(bullet);
 	}
-
-#pragma endregion
-
-#pragma region 自弾と敵弾の当たり判定
-
-	for (PlayerBullet* playerBullet : playerBullets) {
-		for (EnemyBullet* enemyBullet : enemyBullets) {
-			ChekCollisionPair(playerBullet, enemyBullet);
+	std::list<Collider*>::iterator itrA = colliders_.begin();
+	for (; itrA != colliders_.end(); ++itrA) {
+		Collider* colliderA = *itrA;
+		std::list<Collider*>::iterator itrB = itrA;
+		itrB++;
+		for (; itrB != colliders_.end(); ++itrB) {
+		Collider* colliderB = *itrB;
+			ChekCollisionPair(colliderA, colliderB);
+		
 		}
 	}
 
-#pragma endregion
 }
 
 void GameScene::ChekCollisionPair(Collider* colliderA, Collider* colliderB) { 
+if ((colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask() )== 0 ||
+	    (colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask()) == 0) {
+		return;
+	}
 	Vector3 coA, coB;
-
 
 	coA=colliderA->GetWorldPosition();
 	coB=colliderB->GetWorldPosition();
