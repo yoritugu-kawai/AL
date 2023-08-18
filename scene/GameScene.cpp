@@ -34,58 +34,25 @@ void GameScene::Initialize() {
 	// 軸方向表示
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+	//コライダー　
+	collisionManager_ = new CollisionManager();
 }
 
-void GameScene::CheckAllCollisions() {
-	
+void GameScene::CheckAllCollisions() { 
+	collisionManager_->CollideClear(); 
+	const std::list<EnemyBullet*> &enemyBullets=enemy_->GetBullets();
 	const std::list<PlayerBullet*>& playerBullets = player_->GetBullets();
-	const std::list<EnemyBullet*>& enemyBullets = enemy_->GetBullets();
-
-	std::list<Collider*> colliders_;
-	colliders_.push_back(player_);
-	colliders_.push_back(enemy_);
+	collisionManager_->ColliderPush(player_);
+	collisionManager_->ColliderPush(enemy_);
 	for (PlayerBullet* bullet : playerBullets) {
-		colliders_.push_back(bullet);
+		collisionManager_->ColliderPush(bullet);
 	}
-
 	for (EnemyBullet* bullet : enemyBullets) {
-		colliders_.push_back(bullet);
+		collisionManager_->ColliderPush(bullet);
 	}
-	std::list<Collider*>::iterator itrA = colliders_.begin();
-	for (; itrA != colliders_.end(); ++itrA) {
-		Collider* colliderA = *itrA;
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-		for (; itrB != colliders_.end(); ++itrB) {
-		Collider* colliderB = *itrB;
-			ChekCollisionPair(colliderA, colliderB);
-		
-		}
-	}
-
+	collisionManager_->CheckAllCollisions();
 }
 
-void GameScene::ChekCollisionPair(Collider* colliderA, Collider* colliderB) { 
-if ((colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask() )== 0 ||
-	    (colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask()) == 0) {
-		return;
-	}
-	Vector3 coA, coB;
-
-	coA=colliderA->GetWorldPosition();
-	coB=colliderB->GetWorldPosition();
-	float coAR, coBR;
-	coAR = colliderA->GetRadius();
-	coBR = colliderB->GetRadius();
-	if (CheckBallCollosion(coA, coAR, coB, coBR)) {
-		colliderA->OnCollision();
-		colliderB->OnCollision();
-		
-	
-	}
-
-
-}
 
 
 
@@ -160,22 +127,4 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
-}
-
-bool GameScene::CheckBallCollosion(Vector3 v1, float v1Radious, Vector3 v2, float v2Radious) {
-	float x = (v2.x - v1.x);
-	float y = (v2.y - v1.y);
-	float z = (v2.z - v1.z);
-
-	float resultPos = (x * x) + (y * y) + (z * z);
-
-	float resultRadious = v1Radious + v2Radious;
-
-	bool Flag = false;
-
-	if (resultPos <= (resultRadious * resultRadious)) {
-		Flag = true;
-	}
-
-	return Flag;
 }

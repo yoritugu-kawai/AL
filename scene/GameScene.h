@@ -13,7 +13,8 @@
 #include "MyClass/chara/Enemy.h"
 #include "MyClass/chara/Player.h"
 #include "TextureManager.h"
-
+//
+#include"CollisionManager.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -67,6 +68,5 @@ private: // メンバ変数
 	/// <summary>
 	/// コライダー
 	/// </summary>
-	void ChekCollisionPair(Collider* colliderA, Collider* colliderB);
-	bool CheckBallCollosion(Vector3 v1, float v1Radious, Vector3 v2, float v2Radious);
+	CollisionManager* collisionManager_ = nullptr;
 };
