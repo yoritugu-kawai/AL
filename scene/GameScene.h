@@ -19,6 +19,8 @@
 /// <summary>
 /// ゲームシーン
 /// </summary>
+enum GAME { START, PLAY, CLEAR, OVER };
+
 class GameScene {
 
 public: // メンバ関数
@@ -94,5 +96,7 @@ public: // メンバ関数
 	//待機タイム
 	bool isTim = true;
 	int waitingTim = 120;
-
+	//
+	GAME Game;
+	XINPUT_STATE joystate;
 };

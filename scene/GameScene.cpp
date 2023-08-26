@@ -7,6 +7,7 @@
 #include <fstream>
 GameScene::GameScene() {}
 
+
 GameScene::~GameScene() {
 	// デストラクタ
 
@@ -62,8 +63,9 @@ void GameScene::Initialize() {
 	// 軸方向表示
 	AxisIndicator::GetInstance()->SetVisible(true);
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+	// シーン切り替え
 
-	
+ Game = START;
 }
 
 void GameScene::CheckAllCollisions() {
@@ -186,52 +188,74 @@ void GameScene::UpdateEnemyPopCommands() {
 }
 
 void GameScene::Update() {
-
-	player_->Update(viewProjection_);
-	UpdateEnemyPopCommands();
-	for (Enemy* enemy : enemys_) {
-		enemy->Update();
-	}
-	enemys_.remove_if([](Enemy* enemy) {
-		if (enemy->IsDead()) {
-			delete enemy;
-			return true;
+	switch (Game) {
+	case START:
+		if (!Input::GetInstance()->GetJoystickState(0, joystate)) {
+			return;
 		}
+		if (joystate.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
 
-		return false;
-	});
-	CheckAllCollisions();
-	debugCamera_->Update();
-	skydome_->Update();
-
-	for (EnemyBullet* bullet : enemyBullets_) {
-		bullet->Update();
-	}
-	enemyBullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
+			Game = PLAY;
 		}
-		return false;
-	});
+		break;
+	case PLAY:
+		player_->Update(viewProjection_);
+		UpdateEnemyPopCommands();
+		for (Enemy* enemy : enemys_) {
+			enemy->Update();
+		}
+		enemys_.remove_if([](Enemy* enemy) {
+			if (enemy->IsDead()) {
+				delete enemy;
+				return true;
+			}
+
+			return false;
+		});
+		CheckAllCollisions();
+		debugCamera_->Update();
+		skydome_->Update();
+
+		for (EnemyBullet* bullet : enemyBullets_) {
+			bullet->Update();
+		}
+		enemyBullets_.remove_if([](EnemyBullet* bullet) {
+			if (bullet->IsDead()) {
+				delete bullet;
+				return true;
+			}
+			return false;
+		});
 
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_K)) {
-		isDebugCameraActive_ = true;
-	}
+		if (input_->TriggerKey(DIK_K)) {
+			isDebugCameraActive_ = true;
+		}
 
 #endif // DEBUG
-	// カメラ処理
-	if (isDebugCameraActive_) {
+		// カメラ処理
+		if (isDebugCameraActive_) {
 
-		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
-		viewProjection_.TransferMatrix();
-	} else {
-		railCmamera_->Update();
-		viewProjection_.matView = railCmamera_->GetViewProjection().matView;
-		viewProjection_.matProjection = railCmamera_->GetViewProjection().matProjection;
-		viewProjection_.TransferMatrix();
+			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+			viewProjection_.TransferMatrix();
+		} else {
+			railCmamera_->Update();
+			viewProjection_.matView = railCmamera_->GetViewProjection().matView;
+			viewProjection_.matProjection = railCmamera_->GetViewProjection().matProjection;
+			viewProjection_.TransferMatrix();
+		}
+		break;
+	case OVER:
+		if (joystate.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+			Game = START;
+		}
+		break;
+	case CLEAR:
+		if (joystate.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
+			Game = START;
+		}
+		break;
 	}
 }
 
@@ -261,16 +285,23 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	player_->Draw(viewProjection_);
+	///
+	switch (Game) {
+	case START:
+		break;
+	case PLAY:
+		player_->Draw(viewProjection_);
 
-	for (Enemy* enemy : enemys_) {
-		enemy->Draw(viewProjection_);
-	}
+		for (Enemy* enemy : enemys_) {
+			enemy->Draw(viewProjection_);
+		}
 
-	skydome_->Draw(viewProjection_);
+		skydome_->Draw(viewProjection_);
 
-	for (EnemyBullet* bullet : enemyBullets_) {
-		bullet->Draw(viewProjection_);
+		for (EnemyBullet* bullet : enemyBullets_) {
+			bullet->Draw(viewProjection_);
+		}
+		break;
 	}
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -283,7 +314,13 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	player_->DrawUI();
+	switch (Game) {
+	case START:
+		break;
+	case PLAY:
+		player_->DrawUI();
+		break;
+	}
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
