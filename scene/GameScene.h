@@ -99,4 +99,5 @@ public: // メンバ関数
 	//
 	GAME Game;
 	XINPUT_STATE joystate;
+	int32_t gameCount;
 };

@@ -7,7 +7,6 @@
 #include <fstream>
 GameScene::GameScene() {}
 
-
 GameScene::~GameScene() {
 	// デストラクタ
 
@@ -65,7 +64,8 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 	// シーン切り替え
 
- Game = START;
+	Game = START;
+	gameCount = 0;
 }
 
 void GameScene::CheckAllCollisions() {
@@ -101,6 +101,7 @@ void GameScene::CheckAllCollisions() {
 
 				enemy->OnCollision();
 				playerBullet->OnCollision();
+				gameCount += 1;
 			}
 		}
 	}
@@ -197,6 +198,7 @@ void GameScene::Update() {
 
 			Game = PLAY;
 		}
+		gameCount = 0;
 		break;
 	case PLAY:
 		player_->Update(viewProjection_);
@@ -233,7 +235,7 @@ void GameScene::Update() {
 		}
 
 #endif // DEBUG
-		// カメラ処理
+       // カメラ処理
 		if (isDebugCameraActive_) {
 
 			viewProjection_.matView = debugCamera_->GetViewProjection().matView;
@@ -245,13 +247,22 @@ void GameScene::Update() {
 			viewProjection_.matProjection = railCmamera_->GetViewProjection().matProjection;
 			viewProjection_.TransferMatrix();
 		}
+		if (gameCount == 5) {
+			Game = CLEAR;
+		}
 		break;
 	case OVER:
+		if (!Input::GetInstance()->GetJoystickState(0, joystate)) {
+			return;
+		}
 		if (joystate.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
 			Game = START;
 		}
 		break;
 	case CLEAR:
+		if (!Input::GetInstance()->GetJoystickState(0, joystate)) {
+			return;
+		}
 		if (joystate.Gamepad.wButtons & XINPUT_GAMEPAD_B) {
 			Game = START;
 		}
