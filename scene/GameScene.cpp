@@ -66,6 +66,10 @@ void GameScene::Initialize() {
 
 	Game = START;
 	gameCount = 0;
+	//スタート
+	start_ = new Sprite;
+	uint32_t startTex = TextureManager::Load("tit.png");
+	start_=Sprite::Create(startTex, {0, 0});
 }
 
 void GameScene::CheckAllCollisions() {
@@ -247,7 +251,7 @@ void GameScene::Update() {
 			viewProjection_.matProjection = railCmamera_->GetViewProjection().matProjection;
 			viewProjection_.TransferMatrix();
 		}
-		if (gameCount == 5) {
+		if (gameCount == 6) {
 			Game = CLEAR;
 		}
 		break;
@@ -282,7 +286,11 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに背景スプライトの描画処理を追加できる
 	/// </summary>
-
+	switch (Game) {
+	case START:
+		start_->Draw();
+		break;
+	}
 	// スプライト描画後処理
 	Sprite::PostDraw();
 	// 深度バッファクリア
