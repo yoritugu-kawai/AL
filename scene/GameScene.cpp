@@ -66,10 +66,19 @@ void GameScene::Initialize() {
 
 	Game = START;
 	gameCount = 0;
+	countDwun = 5;
 	//スタート
 	start_ = new Sprite;
 	uint32_t startTex = TextureManager::Load("tit.png");
 	start_=Sprite::Create(startTex, {0, 0});
+	///クリア
+	clear_ = new Sprite;
+	uint32_t clearTex = TextureManager::Load("clear.png");
+	clear_ = Sprite::Create(clearTex, {0, 0});
+	//オーバー
+	over = new Sprite;
+	uint32_t overTex = TextureManager::Load("over.png");
+	over = Sprite::Create(overTex, {0, 0});
 }
 
 void GameScene::CheckAllCollisions() {
@@ -88,6 +97,7 @@ void GameScene::CheckAllCollisions() {
 
 			player_->OnCollision();
 			enemybullet->OnCollision();
+			countDwun -=1;
 		}
 	}
 
@@ -203,6 +213,8 @@ void GameScene::Update() {
 			Game = PLAY;
 		}
 		gameCount = 0;
+		countDwun = 5;
+
 		break;
 	case PLAY:
 		player_->Update(viewProjection_);
@@ -254,6 +266,9 @@ void GameScene::Update() {
 		if (gameCount == 6) {
 			Game = CLEAR;
 		}
+		if (countDwun == 0) {
+			Game = OVER;
+		}
 		break;
 	case OVER:
 		if (!Input::GetInstance()->GetJoystickState(0, joystate)) {
@@ -289,6 +304,12 @@ void GameScene::Draw() {
 	switch (Game) {
 	case START:
 		start_->Draw();
+		break;
+	case OVER:
+		over->Draw();
+		break;
+	case CLEAR:
+		clear_->Draw();
 		break;
 	}
 	// スプライト描画後処理

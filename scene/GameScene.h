@@ -100,5 +100,8 @@ public: // メンバ関数
 	GAME Game;
 	XINPUT_STATE joystate;
 	int32_t gameCount;
+	int32_t countDwun;
 	Sprite* start_ = nullptr;
+	Sprite* clear_ = nullptr;
+	Sprite* over = nullptr;
 };
