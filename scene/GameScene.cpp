@@ -212,6 +212,9 @@ void GameScene::Update() {
 
 			Game = PLAY;
 		}
+		if (input_->PushKey(DIK_A)) {
+			Game = PLAY;
+		}
 		gameCount = 0;
 		countDwun = 5;
 
