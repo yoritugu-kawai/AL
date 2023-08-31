@@ -175,9 +175,9 @@ void Player::Update(ViewProjection viewProjection) {
 		}
 		return false;
 	});
-	ImGui::Begin(" ");
+	/*ImGui::Begin(" ");
 	ImGui::SliderFloat3("Player", inputFloat3, -33.0f, 33.0f);
-	ImGui::End();
+	ImGui::End();*/
 }
 
 void Player::GetMouse(ViewProjection viewProjection) {

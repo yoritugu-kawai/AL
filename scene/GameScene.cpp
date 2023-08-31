@@ -2,7 +2,7 @@
 #include <cassert>
 
 #include "AxisIndicator.h"
-#include "ImGuiManager.h"
+//#include "ImGuiManager.h"
 #include "PrimitiveDrawer.h"
 #include <fstream>
 GameScene::GameScene() {}

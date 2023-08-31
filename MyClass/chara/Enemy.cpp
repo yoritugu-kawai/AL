@@ -1,7 +1,7 @@
 ﻿#include "MyClass/chara/Enemy.h"
 #include "GameScene.h"
 #include "Player.h"
-#include <ImGuiManager.h>
+//#include <ImGuiManager.h>
 #include <cassert>
 Enemy::Enemy() {}
 Enemy::~Enemy() { delete model_; }
@@ -113,10 +113,10 @@ void Enemy::Update() {
 	    worldTransform_.translation_.x, worldTransform_.translation_.y,
 	    worldTransform_.translation_.z};
 
-	ImGui::Begin(" ");
-	ImGui::SliderFloat3("Enemy", inputFloat, -10.0f, 3.0f);
-	// ImGui::InputInt("Time", time);
-	ImGui::End();
+//	ImGui::Begin(" ");
+//	ImGui::SliderFloat3("Enemy", inputFloat, -10.0f, 3.0f);
+//	// ImGui::InputInt("Time", time);
+//	ImGui::End();
 }
 /**************************************************/
 /*　　　　　　　　　　　　描画　　　　　　　　　*/
