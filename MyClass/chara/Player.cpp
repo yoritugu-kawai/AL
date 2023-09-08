@@ -30,42 +30,42 @@ void Player::Initialize(Model* model, Vector3 position) {
 }
 void Player::Attack() {
 
-	//if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
-	//	return;
-	//}
-	//if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
-
-	//	// 弾の速度
-
-	//	const float kBulletSpeed = 1.0f;
-	//	Vector3 velocity(0, 0, kBulletSpeed);
-
-	//	velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
-
-	//	PlayerBullet* newBullet = new PlayerBullet();
-	//	velocity.x = worldTransform3DReticle_.translation_.x - worldTransform_.translation_.x;
-	//	velocity.y = worldTransform3DReticle_.translation_.y - worldTransform_.translation_.y;
-	//	velocity.z = worldTransform3DReticle_.translation_.z - worldTransform_.translation_.z;
-	//	velocity = Normalize(velocity);
-	//	velocity.x *= kBulletSpeed;
-	//	velocity.y *= kBulletSpeed;
-	//	velocity.z *= kBulletSpeed;
-	//	newBullet->Initialize(model_, GetWorldPosition(), velocity);
-	//	bullets_.push_back(newBullet);
-	//}
-
-	if (input_->PushKey(DIK_SPACE)) {
+	if (!Input::GetInstance()->GetJoystickState(0, joyState)) {
+		return;
+	}
+	if (joyState.Gamepad.wButtons & XINPUT_GAMEPAD_RIGHT_SHOULDER) {
 
 		// 弾の速度
+
 		const float kBulletSpeed = 1.0f;
 		Vector3 velocity(0, 0, kBulletSpeed);
 
 		velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
 
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+		velocity.x = worldTransform3DReticle_.translation_.x - worldTransform_.translation_.x;
+		velocity.y = worldTransform3DReticle_.translation_.y - worldTransform_.translation_.y;
+		velocity.z = worldTransform3DReticle_.translation_.z - worldTransform_.translation_.z;
+		velocity = Normalize(velocity);
+		velocity.x *= kBulletSpeed;
+		velocity.y *= kBulletSpeed;
+		velocity.z *= kBulletSpeed;
+		newBullet->Initialize(model_, GetWorldPosition(), velocity);
 		bullets_.push_back(newBullet);
 	}
+
+	//if (input_->PushKey(DIK_SPACE)) {
+
+	//	// 弾の速度
+	//	const float kBulletSpeed = 1.0f;
+	//	Vector3 velocity(0, 0, kBulletSpeed);
+
+	//	velocity = TransFormNormal(velocity, worldTransform_.matWorld_);
+
+	//	PlayerBullet* newBullet = new PlayerBullet();
+	//	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+	//	bullets_.push_back(newBullet);
+	//}
 }
 
 void Player::OnCollision() {}

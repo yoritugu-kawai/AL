@@ -205,16 +205,16 @@ void GameScene::UpdateEnemyPopCommands() {
 void GameScene::Update() {
 	switch (Game) {
 	case START:
-		/*if (!Input::GetInstance()->GetJoystickState(0, joystate)) {
+		if (!Input::GetInstance()->GetJoystickState(0, joystate)) {
 			return;
 		}
 		if (joystate.Gamepad.wButtons & XINPUT_GAMEPAD_A) {
 
 			Game = PLAY;
-		}*/
-		if (input_->PushKey(DIK_B)) {
-			Game = PLAY;
 		}
+		/*if (input_->PushKey(DIK_B)) {
+			Game = PLAY;
+		}*/
 		gameCount = 0;
 		countDwun = 5;
 
