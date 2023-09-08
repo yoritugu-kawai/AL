@@ -37,7 +37,7 @@ void Player::Update() {
 	} else if (input_->PushKey(DIK_DOWN)) {
 		move.y-= kCharacterSpeed;
 	}
-	worldTransform_.translation_ = Add(worldTransform_.translation_, move);
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, move);
 	worldTransform_.matWorld_ = MakeAffineMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	
 	ImGui::Begin(" ");
