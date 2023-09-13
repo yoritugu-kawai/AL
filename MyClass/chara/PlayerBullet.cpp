@@ -14,7 +14,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 void PlayerBullet::Update() {
 	worldTransform_.UpdateMatrix();
 	// 速度
-	worldTransform_.translation_ = Add(worldTransform_.translation_, velocuty_);
+	//worldTransform_.translation_ = Add(worldTransform_.translation_, velocuty_);
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
